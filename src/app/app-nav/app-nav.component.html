@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+  <span class="navbar-brand">LioQuizes</span>
+
+  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse collapse w-100" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav w-100">
+      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/dashboard'}">
+        <a class="nav-link" routerLink="/dashboard" >Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Quizes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Admin</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav w-100 justify-content-end">
+      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/login'}">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
