@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppDashboardComponent } from './app-dashboard/app-dashboard.component';
 import { AppLoginComponent } from './app-login/app-login.component';
 import { AppLoginFormComponent } from './app-login-form/app-login-form.component';
+import { AppManageAccountComponent } from './app-manage-account/app-manage-account.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AppLoginFormComponent } from './app-login-form/app-login-form.component
     AppNavComponent,
     AppDashboardComponent,
     AppLoginComponent,
-    AppLoginFormComponent
+    AppLoginFormComponent,
+    AppManageAccountComponent
   ],
   imports: [
     BrowserModule,

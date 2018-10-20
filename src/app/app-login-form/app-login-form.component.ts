@@ -10,7 +10,7 @@ export class AppLoginFormComponent implements OnInit {
 
   @Input() type: string;
 
-  constructor(private auth: AuthService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -20,12 +20,12 @@ export class AppLoginFormComponent implements OnInit {
 
     const username = event.target.querySelector('#username').value;
     const password = event.target.querySelector('#password').value;
-    console.log(username, password);
     switch (this.type) {
-        case "Einloggen":
-          this.auth.login(username, password)
+        case 'Einloggen':
+          this.auth.login(username, password);
           break;
-        case "Registrieren":
+        case 'Registrieren':
+            this.auth.register(username, password);
           break;
     }
   }

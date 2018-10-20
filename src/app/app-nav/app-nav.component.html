@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-  <span class="navbar-brand">LioQuizes</span>
+  <span class="navbar-brand">LioGames</span>
 
   <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
     <span class="navbar-toggler-icon"></span>
@@ -12,16 +12,19 @@
         <a class="nav-link" routerLink="/dashboard" >Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Quizes</a>
+        <a class="nav-link" href="#">TicTacToe</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Admin</a>
+        <a class="nav-link" href="#">FallingBlocks</a>
       </li>
     </ul>
 
     <ul class="nav navbar-nav w-100 justify-content-end">
-      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/login'}">
+      <li class="nav-item" [ngStyle]="{'display': auth.authenticated ? 'none' : 'block'}" [ngClass]="{'active' : location.path(false) === '/login'}">
         <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" [ngStyle]="{'display': !auth.authenticated ? 'none' : 'block'}" [ngClass]="{'active' : location.path(false) === '/manage-account'}">
+        <a class="nav-link" routerLink="/manage-account">{{auth.username}}</a>
       </li>
     </ul>
   </div>
