@@ -11,6 +11,8 @@ import { AppDashboardComponent } from './app-dashboard/app-dashboard.component';
 import { AppLoginComponent } from './app-login/app-login.component';
 import { AppLoginFormComponent } from './app-login-form/app-login-form.component';
 import { AppManageAccountComponent } from './app-manage-account/app-manage-account.component';
+import { AppFallingBlocksComponent } from './app-falling-blocks/app-falling-blocks.component';
+import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { AppManageAccountComponent } from './app-manage-account/app-manage-accou
     AppDashboardComponent,
     AppLoginComponent,
     AppLoginFormComponent,
-    AppManageAccountComponent
+    AppManageAccountComponent,
+    AppFallingBlocksComponent,
+    AppTictactoeComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class AppLoginFormComponent implements OnInit {
     const password = event.target.querySelector('#password').value;
     switch (this.type) {
         case 'Einloggen':
-          this.auth.login(username, password);
+            this.auth.login(username, password);
           break;
         case 'Registrieren':
             this.auth.register(username, password);

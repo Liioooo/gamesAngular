@@ -5,12 +5,16 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppDashboardComponent} from './app-dashboard/app-dashboard.component';
 import {AppLoginComponent} from './app-login/app-login.component';
 import {AppManageAccountComponent} from './app-manage-account/app-manage-account.component';
+import {AppFallingBlocksComponent} from './app-falling-blocks/app-falling-blocks.component';
+import {AppTictactoeComponent} from './app-tictactoe/app-tictactoe.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: AppDashboardComponent },
     { path: 'login', component: AppLoginComponent },
     { path: 'manage-account', component: AppManageAccountComponent },
+    { path: 'falling-blocks', component: AppFallingBlocksComponent },
+    { path: 'tictactoe', component: AppTictactoeComponent }
 ];
 
 @NgModule({
