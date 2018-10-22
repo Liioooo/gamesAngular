@@ -1,4 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { Player } from './Player';
 
 import * as p5 from 'p5';
 
@@ -7,41 +8,60 @@ import * as p5 from 'p5';
   templateUrl: './app-falling-blocks.component.html',
   styleUrls: ['./app-falling-blocks.component.css']
 })
-export class AppFallingBlocksComponent implements OnInit, OnDestroy {
+export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @ViewChild("fallingBlockCanvas") fallingBlockCanvas: ElementRef;
   private p5;
 
-  constructor() { }
+  constructor() {
+      window.onresize = this.onWindowResize;
+  }
 
   ngOnInit() {
-      this.createCanvas();
+
   }
 
   ngOnDestroy() {
       this.destroyCanvas();
   }
 
+  ngAfterViewInit() {
+      this.createCanvas();
+  }
+
   private createCanvas = () => {
-    this.p5 = new p5(this.drawing);
+      let sketch = this.defineSketch(this.fallingBlockCanvas.nativeElement.offsetWidth);
+      this.p5 = new p5(sketch);
   };
 
   private destroyCanvas = () => {
-    this.p5.noCanvas();
+      this.p5.noCanvas();
   };
 
-  private drawing = function (p: any) {
-    p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight).parent('falling-block-canvas');
-        p.frameRate(60);
-    };
+  private onWindowResize = (e) => {
+      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth, 500);
 
-    p.draw = () => {
-      p.background(255);
-      p.fill(0);
-      p.rect(p.mouseX, p.mouseY, 100, 100);
-    };
+  };
 
+  private defineSketch(width) {
+
+    return function (p: any) {
+
+        let player;
+
+        p.setup = () => {
+            p.createCanvas(width, 500).parent('falling-block-canvas');
+            p.frameRate(60);
+
+            player = new Player(p, 0, p.height-200, 5);
+        };
+
+        p.draw = () => {
+            p.background(255);
+            p.fill(0);
+            player.paint();
+        };
+    }
   }
-
 
 }
