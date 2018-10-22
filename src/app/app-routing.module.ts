@@ -7,12 +7,13 @@ import {AppLoginComponent} from './app-login/app-login.component';
 import {AppManageAccountComponent} from './app-manage-account/app-manage-account.component';
 import {AppFallingBlocksComponent} from './app-falling-blocks/app-falling-blocks.component';
 import {AppTictactoeComponent} from './app-tictactoe/app-tictactoe.component';
+import {AuthGuardService} from './auth-guard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: AppDashboardComponent },
-    { path: 'login', component: AppLoginComponent },
-    { path: 'manage-account', component: AppManageAccountComponent },
+    { path: 'login', component: AppLoginComponent},
+    { path: 'manage-account', component: AppManageAccountComponent, canActivate: [AuthGuardService] },
     { path: 'falling-blocks', component: AppFallingBlocksComponent },
     { path: 'tictactoe', component: AppTictactoeComponent }
 ];
