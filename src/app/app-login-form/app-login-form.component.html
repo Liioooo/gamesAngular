@@ -11,10 +11,6 @@
       <input type="password" class="form-control" id="password" placeholder="Passwort eingeben" name="password" required="required">
       <span class="error text-danger" [ngStyle]="{'display': auth.lastError === 'invalid' && type === 'Einloggen' ? 'block' : 'none'}">Passwort falsch!</span>
     </div>
-    <div class="custom-control custom-checkbox mb-3">
-      <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe">
-      <label class="custom-control-label" for="rememberMe">Angemeldet bleiben</label>
-    </div>
     <button type="submit" class="btn btn-primary">{{type}}</button>
   </form>
 </div>

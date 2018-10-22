@@ -1,4 +1,4 @@
-import * as p5 from 'p5';
+import {Block} from './Block';
 
 export class Player {
 
@@ -15,7 +15,8 @@ export class Player {
     }
 
     paint() {
-        this.p.rect((this.p.width/this.numberOfBlocks) * this.positionX, this.positionY, (this.p.width/this.numberOfBlocks), 100);
+        this.p.fill('#343a40');
+        this.p.rect((this.p.width/this.numberOfBlocks) * this.positionX, this.positionY, (this.p.width/this.numberOfBlocks), 50);
     }
 
     moveLeft() {
@@ -25,8 +26,16 @@ export class Player {
     }
 
     moveRight() {
-        if(this.positionX < this.numberOfBlocks) {
+        if(this.positionX < this.numberOfBlocks - 1) {
             this.positionX++;
         }
+    }
+
+    checkCollision(block: Block) {
+        return block.positionY + 38 >= this.positionY && block.positionX === this.positionX;
+    }
+
+    setMiddle() {
+        this.positionX = Math.floor(this.numberOfBlocks/2);
     }
 }

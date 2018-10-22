@@ -7,10 +7,7 @@ import {Router} from '@angular/router';
 })
 export class AuthService {
 
-    public username: string;
-    public userID: number;
     public lastError: string;
-    public authenticated: boolean = false;
     public changedUserSuccess: boolean = false;
     public changedPassSuccess: boolean = false;
 
@@ -20,9 +17,9 @@ export class AuthService {
         return this.http.post('/api/login.php', {username, password})
             .subscribe(data => {
                 if(data['auth'] == 1) {
-                    this.authenticated = true;
-                    this.username = data['username'];
-                    this.userID = data['userID'];
+                    sessionStorage.setItem('authenticated', 'true');
+                    sessionStorage.setItem('username', data['username']);
+                    sessionStorage.setItem('userID',  data['userID']);
                     this.router.navigate(['dashboard']);
                 }
                 this.lastError = data['error'];
@@ -33,9 +30,9 @@ export class AuthService {
         this.http.post('/api/register.php', {username, password})
             .subscribe(data => {
                 if(data['auth'] == 1) {
-                    this.authenticated = true;
-                    this.username = data['username'];
-                    this.userID = data['userID'];
+                    sessionStorage.setItem('authenticated', 'true');
+                    sessionStorage.setItem('username', data['username']);
+                    sessionStorage.setItem('userID',  data['userID']);
                     this.router.navigate(['dashboard']);
                 }
                 this.lastError = data['error'];
@@ -50,16 +47,36 @@ export class AuthService {
             });
     }
 
+    private setUserLoggedOut() {
+        sessionStorage.removeItem('authenticated');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('authenticated');
+        this.router.navigate(['dashboard']);
+    }
+
+    isAuthenticated(): boolean {
+        return sessionStorage.getItem('authenticated') === 'true';
+    }
+
+    getUsername() {
+        return sessionStorage.getItem('username');
+    }
+
+    getUserID() {
+        return sessionStorage.getItem('userID');
+    }
+
+
     changeUsername(newUsername: string) {
         this.http.post('/api/editUser.php', {
             'newUsername': newUsername,
-            'userID': this.userID,
+            'userID': sessionStorage.getItem('userID'),
             'action': 'changeUsername'
         })
             .subscribe(data => {
                 if(data['auth'] == 1) {
                     if(data['error'] !== '23000') {
-                        this.username = data['username'];
+                        sessionStorage.setItem('username', data['username']);
                         this.changedUserSuccess = true;
                     } else {
                         this.changedUserSuccess = false;
@@ -75,7 +92,7 @@ export class AuthService {
         this.http.post('/api/editUser.php', {
             'newPassword': newPassword,
             'oldPassword': oldPassword,
-            'userID': this.userID,
+            'userID': sessionStorage.getItem('userID'),
             'action': 'changePassword'
         })
             .subscribe(data => {
@@ -92,10 +109,4 @@ export class AuthService {
             });
     }
 
-    private setUserLoggedOut() {
-        this.authenticated = false;
-        this.username = null;
-        this.userID = null;
-        this.router.navigate(['dashboard']);
-    }
 }

@@ -1,0 +1,9 @@
+.startButton {
+    position: absolute;
+    left: 35%;
+    top: 35%;
+    z-index: 1060;
+    width: 30%;
+    height: 15%;
+    font-size: 4vw;
+}
