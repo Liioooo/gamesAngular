@@ -24,7 +24,6 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
   ngOnDestroy() {
       this.destroyCanvas();
       clearInterval(this.p5.scoreCounterIntervall);
-      delete this.p5;
   }
 
   ngAfterViewInit() {
@@ -67,14 +66,19 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
     @HostListener('document:keypress', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
-        console.log(event.key);
+        if(this.p5.gameState == 1) {
+            if (event.key === 'a') {
+                this.p5.player.moveLeft();
+            } else if (event.key === 'd') {
+                this.p5.player.moveRight();
+            }
+        }
     }
 
   public startGame() {
       this.p5.initBlocks();
       this.p5.gameState = 1;
       this.p5.score = 0;
-      console.log("start");
       this.p5.player.setMiddle();
       this.p5.scoreCounterIntervall = setInterval(() => {this.p5.score++}, 800);
   }
@@ -95,9 +99,6 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
             p.player = new Player(p, Math.floor(p.numberOfBlocks/2), p.height-75, p.numberOfBlocks);
             p.initBlocks();
 
-            p.keyPressed(function () {
-
-            });
         };
 
         p.draw = () => {
@@ -109,7 +110,6 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
                     fallBlocks();
                     break;
                 case 1:
-                    console.log("kek");
                     paintBlocks();
                     fallBlocks();
                     checkCollision();
@@ -150,20 +150,9 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
         function endGame() {
             p.gameState = 2;
-            console.log("end");
             clearInterval(p.scoreCounterIntervall);
         }
 
-
-        p.keyPressed = () => {
-            if(p.gameState == 1) {
-                if (p.keyCode === p.LEFT_ARROW) {
-                    p.player.moveLeft();
-                } else if (p.keyCode === p.RIGHT_ARROW) {
-                    p.player.moveRight();
-                }
-            }
-        };
     }
   }
 
