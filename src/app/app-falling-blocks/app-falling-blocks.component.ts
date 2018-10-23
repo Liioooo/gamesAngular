@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Player } from './Player';
 import * as p5 from 'p5';
 import {Block} from './Block';
@@ -23,6 +23,8 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngOnDestroy() {
       this.destroyCanvas();
+      clearInterval(this.p5.scoreCounterIntervall);
+      delete this.p5;
   }
 
   ngAfterViewInit() {
@@ -53,20 +55,26 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
       return this.p5.gameState !== 1;
   }
 
-    public gameEnded(): boolean {
-        if (typeof this.p5 === 'undefined') {
-            return false;
-        }
-        if (typeof this.p5.gameState === 'undefined') {
-            return false;
-        }
-        return this.p5.gameState === 2;
+  public gameEnded(): boolean {
+      if (typeof this.p5 === 'undefined') {
+          return false;
+      }
+      if (typeof this.p5.gameState === 'undefined') {
+          return false;
+      }
+      return this.p5.gameState === 2;
+  }
+
+    @HostListener('document:keypress', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        console.log(event.key);
     }
 
   public startGame() {
       this.p5.initBlocks();
       this.p5.gameState = 1;
       this.p5.score = 0;
+      console.log("start");
       this.p5.player.setMiddle();
       this.p5.scoreCounterIntervall = setInterval(() => {this.p5.score++}, 800);
   }
@@ -76,17 +84,20 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
     return function (p: any) {
 
-        const numberOfBlocks = 5;
-        let blocks = [];
-        p.score = 0;
-        p.gameState = 0; //0> noGame, 1> running 2> finished
-
         p.setup = () => {
             p.createCanvas(width, 600).parent('falling-block-canvas');
             p.frameRate(60);
 
-            p.player = new Player(p, Math.floor(numberOfBlocks/2), p.height-75, numberOfBlocks);
+            p.numberOfBlocks = 5;
+            p.blocks = [];
+            p.score = 0;
+            p.gameState = 0; //0> noGame, 1> running 2> finished
+            p.player = new Player(p, Math.floor(p.numberOfBlocks/2), p.height-75, p.numberOfBlocks);
             p.initBlocks();
+
+            p.keyPressed(function () {
+
+            });
         };
 
         p.draw = () => {
@@ -98,10 +109,11 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
                     fallBlocks();
                     break;
                 case 1:
+                    console.log("kek");
                     paintBlocks();
                     fallBlocks();
-                    p.player.paint();
                     checkCollision();
+                    p.player.paintPlayer();
                     break;
                 case 2:
                     paintBlocks();
@@ -111,25 +123,25 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
         };
 
         p.initBlocks = () => {
-            for (let i = 0; i < numberOfBlocks; i++) {
-                blocks[i] = new Block(p, i, 5)
+            for (let i = 0; i < p.numberOfBlocks; i++) {
+                p.blocks[i] = new Block(p, i, 5)
             }
         };
 
         function paintBlocks() {
-            blocks.forEach(block => {
+            p.blocks.forEach(block => {
                block.paint();
             });
         }
 
         function fallBlocks() {
-            blocks.forEach(block => {
+            p.blocks.forEach(block => {
                 block.fall();
             });
         }
 
         function checkCollision() {
-            blocks.forEach(block => {
+            p.blocks.forEach(block => {
                 if(p.player.checkCollision(block)) {
                     endGame();
                 }
@@ -138,14 +150,18 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
         function endGame() {
             p.gameState = 2;
+            console.log("end");
             clearInterval(p.scoreCounterIntervall);
         }
 
+
         p.keyPressed = () => {
-            if (p.keyCode === p.LEFT_ARROW) {
-                p.player.moveLeft();
-            } else if (p.keyCode === p.RIGHT_ARROW) {
-                p.player.moveRight();
+            if(p.gameState == 1) {
+                if (p.keyCode === p.LEFT_ARROW) {
+                    p.player.moveLeft();
+                } else if (p.keyCode === p.RIGHT_ARROW) {
+                    p.player.moveRight();
+                }
             }
         };
     }

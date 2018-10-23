@@ -3,39 +3,39 @@ import {Block} from './Block';
 export class Player {
 
     private p: any;
-    private positionX: number;
-    private positionY: number;
+    private pY: number;
+    private pX: number;
     private numberOfBlocks: number;
 
     constructor(p: any, positionX: number, positionY: number, numberOfBlocks: number) {
         this.p = p;
-        this.positionX = positionX;
+        this.pX = positionX;
         this.numberOfBlocks = numberOfBlocks;
-        this.positionY = positionY;
+        this.pY = positionY;
     }
 
-    paint() {
+    paintPlayer() {
         this.p.fill('#343a40');
-        this.p.rect((this.p.width/this.numberOfBlocks) * this.positionX, this.positionY, (this.p.width/this.numberOfBlocks), 50);
+        this.p.rect((this.p.width/this.numberOfBlocks) * this.pX, this.pY, (this.p.width/this.numberOfBlocks), 50);
     }
 
     moveLeft() {
-        if(this.positionX > 0) {
-            this.positionX--;
+        if(this.pX > 0) {
+            this.pX--;
         }
     }
 
     moveRight() {
-        if(this.positionX < this.numberOfBlocks - 1) {
-            this.positionX++;
+        if(this.pX < this.numberOfBlocks - 1) {
+            this.pX++;
         }
     }
 
     checkCollision(block: Block) {
-        return block.positionY + 38 >= this.positionY && block.positionX === this.positionX;
+        return block.pY + 38 >= this.pY && block.pX === this.pX;
     }
 
     setMiddle() {
-        this.positionX = Math.floor(this.numberOfBlocks/2);
+        this.pX = 2;
     }
 }
