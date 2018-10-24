@@ -25,7 +25,7 @@ export class ScoreService {
         'userID': this.auth.getUserID(),
         'gameID': gameID,
         'score': score
-      })
+      });
   }
 
   getHighScore(gameID: number): Observable<GetHighscoreReturn> {

@@ -8,6 +8,7 @@ import {AppManageAccountComponent} from './app-manage-account/app-manage-account
 import {AppFallingBlocksComponent} from './app-falling-blocks/app-falling-blocks.component';
 import {AppTictactoeComponent} from './app-tictactoe/app-tictactoe.component';
 import {AuthGuardService} from './auth-guard.service';
+import {FlappyBirdComponent} from './flappy-bird/flappy-bird.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'login', component: AppLoginComponent},
     { path: 'manage-account', component: AppManageAccountComponent, canActivate: [AuthGuardService] },
     { path: 'falling-blocks', component: AppFallingBlocksComponent },
-    { path: 'tictactoe', component: AppTictactoeComponent }
+    { path: 'tictactoe', component: AppTictactoeComponent },
+    { path: 'flappy-bird', component: FlappyBirdComponent }
 ];
 
 @NgModule({

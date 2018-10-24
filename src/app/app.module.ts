@@ -13,6 +13,7 @@ import { AppLoginFormComponent } from './app-login-form/app-login-form.component
 import { AppManageAccountComponent } from './app-manage-account/app-manage-account.component';
 import { AppFallingBlocksComponent } from './app-falling-blocks/app-falling-blocks.component';
 import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
+import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
     AppLoginFormComponent,
     AppManageAccountComponent,
     AppFallingBlocksComponent,
-    AppTictactoeComponent
+    AppTictactoeComponent,
+    FlappyBirdComponent
   ],
   imports: [
     BrowserModule,

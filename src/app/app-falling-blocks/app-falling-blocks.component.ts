@@ -10,7 +10,7 @@ import {AuthService} from '../auth.service';
   templateUrl: './app-falling-blocks.component.html',
   styleUrls: ['./app-falling-blocks.component.css']
 })
-export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
   @ViewChild("fallingBlockCanvas") fallingBlockCanvas: ElementRef;
   public p5;
@@ -19,9 +19,6 @@ export class AppFallingBlocksComponent implements OnInit, OnDestroy, AfterViewIn
 
   constructor(private scoreService: ScoreService, public auth: AuthService) {
       window.onresize = this.onWindowResize;
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
