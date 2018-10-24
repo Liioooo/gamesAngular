@@ -58,12 +58,12 @@ export class AuthService {
         return sessionStorage.getItem('authenticated') === 'true';
     }
 
-    getUsername() {
+    getUsername(): string {
         return sessionStorage.getItem('username');
     }
 
-    getUserID() {
-        return sessionStorage.getItem('userID');
+    getUserID(): number {
+        return Number(sessionStorage.getItem('userID'));
     }
 
 

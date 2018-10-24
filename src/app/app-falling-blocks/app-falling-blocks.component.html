@@ -2,16 +2,19 @@
     <h2>FallingBlocks</h2>
     <div id="falling-block-canvas" #fallingBlockCanvas></div>
     <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success startButton">Starten</button>
+    <div *ngIf="gameNotRunning() || gameEnded()" class="infoText bg-info p-3 text-center rounded">
+        <h5>Steuere den Spieler Block mit den Tasten A/D, um den herabfallenden Blöcken auszuweichen.</h5>
+    </div>
     <h3 *ngIf="!gameNotRunning()">Score: {{p5.score}}</h3>
     <div class="row" *ngIf="gameEnded()">
         <div class="col align-self-center">
             <h3>Score: {{p5.score}}</h3>
-            <h3 *ngIf="auth.isAuthenticated()">Dein Highscore: xx</h3>
-            <h3>Highscore: xx</h3>
+            <h3 *ngIf="auth.isAuthenticated()">Dein Highscore: {{p5.userHighscore}}</h3>
+            <h3>Highscore: {{p5.allHighscore}}</h3>
         </div>
         <div class="col align-self-center">
             <div class="row justify-content-end pr-3">
-                <button routerLink="/login" *ngIf="!auth.isAuthenticated()" class="btn btn-info">Einloggen um den Score zu speichern</button>
+                <button routerLink="/login" *ngIf="!auth.isAuthenticated()" class="btn btn-warning">Einloggen um den Score zu speichern</button>
             </div>
         </div>
     </div>

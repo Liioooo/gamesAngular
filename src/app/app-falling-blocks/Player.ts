@@ -38,4 +38,11 @@ export class Player {
     setMiddle() {
         this.pX = 2;
     }
+
+    getPositionDestroyd(): object {
+        return {
+            pX: (this.p.width/this.numberOfBlocks) * this.pX + (this.p.width/this.numberOfBlocks)/2,
+            pY: this.pY
+        }
+    }
 }
