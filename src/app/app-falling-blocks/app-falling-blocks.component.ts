@@ -98,7 +98,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
             p.allHighscore = 'Laden...';
             p.userHighscore = 'Laden...';
 
-            p.numberOfBlocks = 5;
+            p.numberOfBlocks = 6;
             p.blocks = [];
             p.score = 0;
             p.gameState = 0; //0>noGame 1>running 2>endAnimation 3>finished
@@ -136,7 +136,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
         p.initBlocks = () => {
             for (let i = 0; i < p.numberOfBlocks; i++) {
-                p.blocks[i] = new Block(p, i, 5)
+                p.blocks[i] = new Block(p, i, 6)
             }
         };
 

@@ -12,8 +12,8 @@ export class Block {
         this.p = p;
         this.pX = positionX;
         this.numberOfBlocks = numberOfBlocks;
-        this.pY = -50 - Math.random() * 50;
-        this.fallSpeed = 1 + Math.random() * 3.5;
+        this.pY = -200 - Math.random() * 900;
+        this.fallSpeed = 560 + Math.random() * 400;
     }
 
     paint() {
@@ -22,14 +22,14 @@ export class Block {
     }
 
     fall() {
-        this.pY += this.fallSpeed;
+        this.pY += this.fallSpeed/this.p.frameRate();
         this.checkOutOfCanvas();
     }
 
     checkOutOfCanvas() {
         if(this.pY > this.p.height) {
-            this.pY = -50 - Math.random() * 50;
-            this.fallSpeed = 1 + Math.random() * 3.5;
+            this.pY = -200 - Math.random() * 300;
+            this.fallSpeed = 560 + Math.random() * 400;
         }
     }
 }

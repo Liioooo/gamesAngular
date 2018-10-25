@@ -32,7 +32,7 @@ export class Player {
     }
 
     checkCollision(block: Block) {
-        return block.pY + 38 >= this.pY && block.pX === this.pX;
+        return block.pY + 38 >= this.pY && block.pY <= this.pY + 50 && block.pX === this.pX;
     }
 
     setMiddle() {
