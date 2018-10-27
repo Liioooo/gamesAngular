@@ -1,4 +1,5 @@
 import * as p5 from 'p5';
+import {P5JsHelpers} from '../P5JsHelpers';
 
 export class Block {
 
@@ -7,13 +8,15 @@ export class Block {
     public pY: number;
     private numberOfBlocks: number;
     private fallSpeed: number;
+    private baseFallSpeed: number;
 
-    constructor(p: any, positionX: number, numberOfBlocks: number) {
+    constructor(p: any, positionX: number, numberOfBlocks: number, baseFallSpeed: number) {
         this.p = p;
         this.pX = positionX;
+        this.baseFallSpeed = baseFallSpeed;
         this.numberOfBlocks = numberOfBlocks;
         this.pY = -200 - Math.random() * 900;
-        this.fallSpeed = 560 + Math.random() * 400;
+        this.fallSpeed = this.baseFallSpeed + Math.random() * 400;
     }
 
     paint() {
@@ -22,14 +25,18 @@ export class Block {
     }
 
     fall() {
-        this.pY += this.fallSpeed/this.p.frameRate();
+        this.pY += this.fallSpeed/P5JsHelpers.getFrameRate();
         this.checkOutOfCanvas();
     }
 
     checkOutOfCanvas() {
         if(this.pY > this.p.height) {
             this.pY = -200 - Math.random() * 300;
-            this.fallSpeed = 560 + Math.random() * 400;
+            this.fallSpeed = this.baseFallSpeed + Math.random() * 400;
         }
+    }
+
+    increaseBaseFallSpeed() {
+        this.baseFallSpeed += 9;
     }
 }

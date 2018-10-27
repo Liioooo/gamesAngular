@@ -8,25 +8,25 @@
 
   <div class="navbar-collapse collapse w-100" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav w-100">
-      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/dashboard'}">
+      <li class="nav-item" [class.active]="{'active' : location.path(false) === '/dashboard'}">
         <a class="nav-link" routerLink="/dashboard">Home</a>
       </li>
-      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/tictactoe'}">
+      <li class="nav-item" [class.active]="location.path(false) === '/tictactoe'">
         <a class="nav-link" routerLink="/tictactoe">TicTacToe</a>
       </li>
-      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/falling-blocks'}">
+      <li class="nav-item" [class.active]="location.path(false) === '/falling-blocks'">
         <a class="nav-link" routerLink="/falling-blocks">FallingBlocks</a>
       </li>
-      <li class="nav-item" [ngClass]="{'active' : location.path(false) === '/flappy-bird'}">
+      <li class="nav-item" [class.active]="location.path(false) === '/flappy-bird'">
         <a class="nav-link" routerLink="/flappy-bird">FlappyBird</a>
       </li>
     </ul>
 
     <ul class="nav navbar-nav w-100 justify-content-end">
-      <li *ngIf="!auth.isAuthenticated()" class="nav-item" [ngClass]="{'active' : location.path(false) === '/login'}">
+      <li *ngIf="!auth.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/login'">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li *ngIf="auth.isAuthenticated()" class="nav-item" [ngClass]="{'active' : location.path(false) === '/manage-account'}">
+      <li *ngIf="auth.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/manage-account'">
         <a class="nav-link" routerLink="/manage-account">{{auth.getUsername()}}</a>
       </li>
     </ul>

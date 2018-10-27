@@ -4,6 +4,7 @@ import * as p5 from 'p5';
 import {Block} from './Block';
 import {ScoreService} from '../score.service';
 import {AuthService} from '../auth.service';
+import {P5JsHelpers} from '../P5JsHelpers';
 
 @Component({
   selector: 'app-falling-blocks',
@@ -40,7 +41,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
   };
 
   private onWindowResize = (e) => {
-      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth, 600);
+      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth, 650);
 
   };
 
@@ -81,7 +82,12 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
       this.p5.score = 0;
       this.p5.allHighscore = 'Laden...';
       this.p5.player.setMiddle();
-      this.p5.scoreCounterIntervall = setInterval(() => {this.p5.score++}, 800);
+      this.p5.scoreCounterIntervall = setInterval(() => {
+          this.p5.score++;
+          this.p5.blocks.forEach(block => {
+              block.increaseBaseFallSpeed();
+          })
+      }, 800);
   }
 
 
@@ -92,8 +98,9 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
     return function (p: any) {
 
         p.setup = () => {
-            p.createCanvas(width, 600).parent('falling-block-canvas');
+            p.createCanvas(width, 650).parent('falling-block-canvas');
             p.frameRate(60);
+            P5JsHelpers.initFrameRateAvg();
 
             p.allHighscore = 'Laden...';
             p.userHighscore = 'Laden...';
@@ -109,6 +116,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
         p.draw = () => {
             p.background(255);
+            P5JsHelpers.updateFrameRateAvg(p);
             p.noStroke();
             switch (p.gameState) {
                 case 0:
@@ -136,7 +144,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
         p.initBlocks = () => {
             for (let i = 0; i < p.numberOfBlocks; i++) {
-                p.blocks[i] = new Block(p, i, 6)
+                p.blocks[i] = new Block(p, i, 6, 100)
             }
         };
 

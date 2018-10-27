@@ -1,7 +1,7 @@
 .startButton {
     position: absolute;
     left: 35%;
-    top: 35%;
+    top: 25%;
     z-index: 1060;
     width: 30%;
     height: 15%;
@@ -10,7 +10,7 @@
 
 .infoText {
     position: absolute;
-    top: 55%;
+    top: 45%;
     left: 20%;
     z-index: 1060;
     width: 60%;
