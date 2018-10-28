@@ -6,7 +6,7 @@ export class Pipe {
     private pX: number;
     private pY: number;
     private unitsOnScreen: number;
-    private speed: number = 200;
+    private speed: number = 240;
     public gotPoint: boolean = false;
 
     constructor(p: any, pX: number, pY: number, unitsOnScreen: number) {
@@ -29,10 +29,6 @@ export class Pipe {
     move() {
         if(P5JsHelpers.getFrameRate() < 20) return;
         this.pX -= this.speed/P5JsHelpers.getFrameRate();
-    }
-
-    increaseSpeed() {
-        this.speed += 8;
     }
 
     outOfScreen(): boolean {

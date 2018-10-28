@@ -5,7 +5,6 @@ import {AuthService} from '../auth.service';
 import {Player} from './Player';
 import {Pipe} from './Pipe';
 import {P5JsHelpers} from '../P5JsHelpers';
-import {Block} from '../app-falling-blocks/Block';
 
 @Component({
   selector: 'app-flappy-bird',
@@ -81,7 +80,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
         }
     }
 
-    @HostListener('document:click', ['$event'])
+    @HostListener('document:mousedown', ['$event'])
     handleClick(event: MouseEvent) {
         this.p5.player.jump();
     }
@@ -96,7 +95,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 P5JsHelpers.initFrameRateAvg();
 
                 p.unitsOnScreen = 1200;
-                p.gameState = 0; //0>noGame 1>running 2>endAnimation 3>finished
+                p.gameState = 0; //0>noGame 1>running 2>finished
                 p.score = 0;
 
                 p.allHighscore = 'Laden...';
@@ -115,6 +114,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 switch (p.gameState) {
                     case 0:
                         p.paintMovePipes();
+                        p.checkPipeOuside();
                         break;
                     case 1:
                         p.player.fall();
@@ -125,6 +125,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                         break;
                     case 2:
                         p.paintMovePipes();
+                        p.checkPipeOuside();
                         break;
                 }
             };
@@ -156,9 +157,6 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                     } else {
                         if(p.player.checkPoint(p.pipes[i])) {
                             p.score++;
-                            p.pipes.forEach(pipe => {
-                                pipe.increaseSpeed();
-                            })
                         }
                     }
                 }

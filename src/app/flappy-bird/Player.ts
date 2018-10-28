@@ -45,7 +45,7 @@ export class Player {
     }
 
     jump() {
-        this.fallSpeed = P5JsHelpers.convertSpeedToFpsSpeed(this.p, -400);
+        this.fallSpeed = P5JsHelpers.convertSpeedToFpsSpeed(this.p, -500);
     }
 
     checkCollison(pipe: Pipe) {
