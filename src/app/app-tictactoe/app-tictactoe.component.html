@@ -3,11 +3,12 @@
   <div id="ticTacToe-canvas" #ticTacToeCanvas></div>
   <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success startButton">Starten</button>
   <div *ngIf="gameNotRunning() || gameEnded()" class="infoText bg-info p-3 text-center rounded">
-    <h5>Du spielst gegen eine KI du bist das X, die KI der O. Um zu setzen klicke auf ein Feld.</h5>
+    <h5>Du spielst gegen eine KI du bist das X, die KI der O. Um zu setzen klicke auf ein Feld. Wer beginnt ist Zufall.</h5>
   </div>
-  <div class="row" *ngIf="gameEnded()">
+  <div class="row">
     <div class="col align-self-center">
-      <h3>Score: {{p5.gameResult}}</h3>
+      <h3 *ngIf="gameEnded()">Ergebnis: {{p5.gameResult}}</h3>
+      <h3 *ngIf="!loadedModel()">Machine Learning Model wird heruntergaladen...</h3>
     </div>
   </div>
 </div>
