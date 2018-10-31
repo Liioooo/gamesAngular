@@ -8,7 +8,7 @@
 
   <div class="navbar-collapse collapse w-100" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav w-100">
-      <li class="nav-item" [class.active]="{'active' : location.path(false) === '/dashboard'}">
+      <li class="nav-item" [class.active]="location.path(false) === '/dashboard'">
         <a class="nav-link" routerLink="/dashboard">Home</a>
       </li>
       <li class="nav-item" [class.active]="location.path(false) === '/tictactoe'">
@@ -19,6 +19,9 @@
       </li>
       <li class="nav-item" [class.active]="location.path(false) === '/flappy-bird'">
         <a class="nav-link" routerLink="/flappy-bird">FlappyBird</a>
+      </li>
+      <li class="nav-item" [class.active]="location.path(false) === '/4-gewinnt'">
+        <a class="nav-link" routerLink="/4-gewinnt">4Gewinnt</a>
       </li>
     </ul>
 

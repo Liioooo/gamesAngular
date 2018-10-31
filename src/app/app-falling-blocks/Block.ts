@@ -21,11 +21,11 @@ export class Block {
 
     paint() {
         this.p.fill('#007bff');
-        this.p.rect((this.p.width/this.numberOfBlocks) * this.pX, this.pY, (this.p.width/this.numberOfBlocks), 40);
+        this.p.rect((this.p.width / this.numberOfBlocks) * this.pX, this.pY, (this.p.width / this.numberOfBlocks), 40);
     }
 
     fall() {
-        this.pY += this.fallSpeed/P5JsHelpers.getFrameRate();
+        this.pY += this.fallSpeed / P5JsHelpers.getFrameRate();
         this.checkOutOfCanvas();
     }
 

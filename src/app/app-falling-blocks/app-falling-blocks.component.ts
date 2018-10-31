@@ -32,18 +32,18 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
   }
 
   private createCanvas = () => {
-      let sketch = this.defineSketch(this.fallingBlockCanvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
+      const sketch = this.defineSketch(this.fallingBlockCanvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
       this.p5 = new p5(sketch);
-  };
+  }
 
   private destroyCanvas = () => {
       this.p5.noCanvas();
-  };
+  }
 
   private onWindowResize = (e) => {
       this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth, 650);
 
-  };
+  }
 
   public gameNotRunning(): boolean {
       if (typeof this.p5 === 'undefined') {
@@ -144,7 +144,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
         p.initBlocks = () => {
             for (let i = 0; i < p.numberOfBlocks; i++) {
-                p.blocks[i] = new Block(p, i, 6, 100)
+                p.blocks[i] = new Block(p, i, 6, 150)
             }
         };
 

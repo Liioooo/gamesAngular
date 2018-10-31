@@ -13,10 +13,10 @@ import {P5JsHelpers} from '../P5JsHelpers';
 })
 export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
-  @ViewChild("flappyBirdCanvas") flappyBirdCanvas: ElementRef;
+  @ViewChild('flappyBirdCanvas') flappyBirdCanvas: ElementRef;
   public p5;
 
-  private gameID: number = 1;
+  private gameID = 1;
 
   constructor(private scoreService: ScoreService, public auth: AuthService) {
       window.onresize = this.onWindowResize;
@@ -32,18 +32,18 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
     }
 
     private createCanvas = () => {
-        let sketch = this.defineSketch(this.flappyBirdCanvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
+        const sketch = this.defineSketch(this.flappyBirdCanvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
         this.p5 = new p5(sketch);
-    };
+    }
 
     private destroyCanvas = () => {
         this.p5.noCanvas();
-    };
+    }
 
     private onWindowResize = (e) => {
         this.p5.resizeCanvas(this.flappyBirdCanvas.nativeElement.offsetWidth, 650);
 
-    };
+    }
 
     public gameNotRunning(): boolean {
         if (typeof this.p5 === 'undefined') {
@@ -75,7 +75,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
     @HostListener('document:keypress', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
-        if(event.key === ' ') {
+        if (event.key === ' ') {
             this.p5.player.jump();
         }
     }
@@ -95,14 +95,14 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 P5JsHelpers.initFrameRateAvg();
 
                 p.unitsOnScreen = 1200;
-                p.gameState = 0; //0>noGame 1>running 2>finished
+                p.gameState = 0; // 0>noGame 1>running 2>finished
                 p.score = 0;
 
                 p.allHighscore = 'Laden...';
                 p.userHighscore = 'Laden...';
 
                 p.pipes = [];
-                p.player = new Player(p, 200, p.height/2, p.unitsOnScreen);
+                p.player = new Player(p, 200, p.height / 2, p.unitsOnScreen);
 
                 p.initPipes();
             };
@@ -132,7 +132,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
             p.initPipes = () => {
                 for (let i = 0; i < 6; i++) {
-                    p.pipes[i] = new Pipe(p, 700 + 270*i, p.random(220, p.height-20), p.unitsOnScreen);
+                    p.pipes[i] = new Pipe(p, 700 + 270 * i, p.random(220, p.height - 20), p.unitsOnScreen);
                 }
             };
 
@@ -144,18 +144,18 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
             };
 
             p.checkPipeOuside = () => {
-                if(p.pipes[0].outOfScreen()) {
-                    p.pipes.push(new Pipe(p, p.pipes[p.pipes.length-1].getPX + 270, p.random(220, p.height-20), p.unitsOnScreen));
+                if (p.pipes[0].outOfScreen()) {
+                    p.pipes.push(new Pipe(p, p.pipes[p.pipes.length - 1].getPX + 270, p.random(220, p.height - 20), p.unitsOnScreen));
                     p.pipes.shift();
                 }
             };
 
             p.checkCollisons = () => {
                 for (let i = 0; i < 2; i++) {
-                    if(p.player.checkCollison(p.pipes[i])) {
+                    if (p.player.checkCollison(p.pipes[i])) {
                         p.endGame();
                     } else {
-                        if(p.player.checkPoint(p.pipes[i])) {
+                        if (p.player.checkPoint(p.pipes[i])) {
                             p.score++;
                         }
                     }
@@ -164,11 +164,11 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
             p.endGame = () => {
                 p.gameState = 2;
-                if(auth.isAuthenticated()) {
+                if (auth.isAuthenticated()) {
                     scoreService.saveHighscore(gameID, p.score)
                         .subscribe(data => {
                             p.allHighscore = data.allHighscore;
-                            p.userHighscore = data.userHighscore
+                            p.userHighscore = data.userHighscore;
                         });
                 } else {
                     scoreService.getHighScore(gameID).subscribe(data => {
@@ -177,7 +177,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 }
             };
 
-        }
+        };
 
     }
 }

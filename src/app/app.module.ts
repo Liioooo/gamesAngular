@@ -14,6 +14,7 @@ import { AppManageAccountComponent } from './app-manage-account/app-manage-accou
 import { AppFallingBlocksComponent } from './app-falling-blocks/app-falling-blocks.component';
 import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
 import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
+import { Connect4Component } from './connect4/connect4.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
     AppManageAccountComponent,
     AppFallingBlocksComponent,
     AppTictactoeComponent,
-    FlappyBirdComponent
+    FlappyBirdComponent,
+    Connect4Component
   ],
   imports: [
     BrowserModule,
