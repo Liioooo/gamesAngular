@@ -15,6 +15,7 @@ import { AppFallingBlocksComponent } from './app-falling-blocks/app-falling-bloc
 import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
 import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
 import { Connect4Component } from './connect4/connect4.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { Connect4Component } from './connect4/connect4.component';
     AppFallingBlocksComponent,
     AppTictactoeComponent,
     FlappyBirdComponent,
-    Connect4Component
+    Connect4Component,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

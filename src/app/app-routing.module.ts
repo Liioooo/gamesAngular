@@ -10,6 +10,7 @@ import {AppTictactoeComponent} from './app-tictactoe/app-tictactoe.component';
 import {AuthGuardService} from './auth-guard.service';
 import {FlappyBirdComponent} from './flappy-bird/flappy-bird.component';
 import {Connect4Component} from './connect4/connect4.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'falling-blocks', component: AppFallingBlocksComponent },
     { path: 'tictactoe', component: AppTictactoeComponent },
     { path: 'flappy-bird', component: FlappyBirdComponent },
-    { path: '4-gewinnt', component: Connect4Component }
+    { path: '4-gewinnt', component: Connect4Component },
+    { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
