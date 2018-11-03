@@ -3,6 +3,8 @@ import {ScoreService} from '../score.service';
 import {AuthService} from '../auth.service';
 import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
+import {Connect4AI} from './Connect4AI';
+import {Connect4Helper} from '../app-tictactoe/Connect4Helper';
 
 @Component({
   selector: 'app-connect4',
@@ -68,20 +70,19 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
         this.p5.score = 0;
         this.p5.allHighscore = 'Laden...';
         this.p5.currentPlayer = 1;
+        this.p5.playsInCurrentGame = 0;
         this.p5.initGrid();
     }
 
     @HostListener('document:mousedown', ['$event'])
     handleClick(event: MouseEvent) {
-        if(this.p5.currentPlayer === 1) {
+        if(this.p5.currentPlayer === 1 && this.p5.gameState === 1) {
             const clickedX = Math.floor(this.p5.map(this.p5.mouseX, 0, this.p5.width, 0, 7));
             if(clickedX < 0 || clickedX > 6) return;
-            for (let i = this.p5.grid[clickedX].length-1; i >= 0; i--) {
-                if(this.p5.grid[clickedX][i] === 0) {
-                    this.p5.grid[clickedX][i] = 1;
-                    this.p5.finishMove();
-                    return;
-                }
+            const gridAfterMove = Connect4Helper.doMove(this.p5.grid, clickedX, 1);
+            if(gridAfterMove != null) {
+                this.p5.grid = gridAfterMove;
+                this.p5.finishMove();
             }
         }
     }
@@ -98,9 +99,11 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                 p.gameState = 0; // 0>noGame 1>running 2>finished
                 p.score = 0;
                 p.currentPlayer = 0;
+                p.playsInCurrentGame = 0;
 
                 p.allHighscore = 'Laden...';
                 p.userHighscore = 'Laden...';
+                p.gameResult = '';
 
                 p.grid = [];
                 p.initGrid();
@@ -109,16 +112,45 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
             p.draw = () => {
                 p.background(255);
                 if(p.gameState === 1) {
+                    if(p.currentPlayer === -1) {
+                        var t0 = performance.now();
+                        const move = Connect4AI.predict(p.grid);
+                        var t1 = performance.now();
+                        console.log("Predicting took " + (t1 - t0) + " milliseconds.");
+                        p.grid = Connect4Helper.doMove(p.grid, move, -1);
+                        p.finishMove();
+                    }
                     p.paintGrid();
                     p.paintLines();
-                    if(p.currentPlayer === -1) {
-
-                    }
+                } else if(p.gameState === 2) {
+                    p.paintGrid();
+                    p.paintLines();
                 }
             };
 
             p.finishMove = () => {
-
+                p.playsInCurrentGame++;
+                const winner = Connect4Helper.checkWinner(p.grid);
+                switch (winner) {
+                    case 0:
+                        p.currentPlayer *= -1;
+                        if(p.playsInCurrentGame === 42) {
+                            p.score = 43;
+                            p.gameState = 2;
+                            p.gameResult = 'Unentschieden';
+                        }
+                        break;
+                    case 1:
+                        p.score = 43 + (42-p.playsInCurrentGame);
+                        p.gameState = 2;
+                        p.gameResult = 'Du hast gewonnen!';
+                        break;
+                    case -1:
+                        p.score = p.playsInCurrentGame;
+                        p.gameState = 2;
+                        p.gameResult = 'Du hast verloren!';
+                        break;
+                }
             };
 
             p.mapToScreenSize = (x: number, y: number): Coords => {

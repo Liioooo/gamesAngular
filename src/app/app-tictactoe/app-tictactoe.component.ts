@@ -101,7 +101,7 @@ export class AppTictactoeComponent implements AfterViewInit, OnDestroy {
                 p.loadedModel = false;
                 p.neuralNet = new NeuralNet();
                 p.neuralNet.load().then(res => {
-                    console.log("loaded");
+                    console.log("loaded tfjs Model TicTacToe");
                     p.loadedModel = true;
                 });
 

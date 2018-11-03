@@ -5,9 +5,9 @@
   <div *ngIf="gameNotRunning() || gameEnded()" class="infoText bg-info p-3 text-center rounded">
     <h5>Beschreibung 4 Gewinnt</h5>
   </div>
-  <h3 *ngIf="!gameNotRunning()">Score: {{p5.score}}</h3>
   <div class="row" *ngIf="gameEnded()">
     <div class="col align-self-center">
+      <h3>Ergebnis: {{p5.gameResult}}</h3>
       <h3>Score: {{p5.score}}</h3>
       <h3 *ngIf="auth.isAuthenticated()">Dein Highscore: {{p5.userHighscore}}</h3>
       <h3>Highscore: {{p5.allHighscore}}</h3>
