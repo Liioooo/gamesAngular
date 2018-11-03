@@ -1,4 +1,53 @@
+import {MoveResultInterface} from './MoveResultInterface';
+
 export class Connect4Helper {
+
+    static checkGameEnd(x: number, y: number, grid: Array<Array<number>>): number{
+        let rv = false;
+        if (grid[x][y] != 0) {
+            rv = (rv) ? rv : this.check4(x, y, 1, 0, grid);
+            rv = (rv) ? rv : this.check4(x, y, 1, -1, grid);
+            rv = (rv) ? rv : this.check4(x, y, 0, 1, grid);
+            rv = (rv) ? rv : this.check4(x, y, 1, 1, grid);
+        }
+        if(rv) {
+            return grid[x][y];
+        }
+        return 0;
+    }
+
+    static check4(x: number, y: number, dx: number, dy: number, grid: Array<Array<number>>, color?: number): boolean {
+        if(color === undefined) {
+            color = grid[x][y];
+        }
+        let length = 1;
+        let i = 1;
+        while (this.onBoard(x+dx*i,y+dy*i)) {
+            if (grid[x+dx*i][y+dy*i] == color){
+                length++;
+                i++;
+            }
+            else{
+                break;
+            }
+        }
+        i = -1;
+        while (this.onBoard(x+dx*i,y+dy*i)) {
+            if (grid[x+dx*i][y+dy*i] == color){
+                length++;
+                i--;
+            }
+            else{
+                break;
+            }
+        }
+
+        return (length>=4);
+    }
+
+    static onBoard(x: number, y: number): boolean {
+        return (0 <= x && x < 7 && 0 <= y && y < 6);
+    }
 
     static checkWinner(grid: Array<Array<number>>): number {
         //check vertical
@@ -70,11 +119,15 @@ export class Connect4Helper {
         return 0;
     }
 
-    static doMove(grid: Array<Array<number>>, move: number, player: number): Array<Array<number>> {
+    static doMove(grid: Array<Array<number>>, move: number, player: number): MoveResultInterface {
         for (let i = grid[move].length-1; i >= 0; i--) {
             if(grid[move][i] === 0) {
                 grid[move][i] = player;
-                return grid;
+                return {
+                    grid: grid,
+                    x: move,
+                    y: i
+                };
             }
         }
         return null;

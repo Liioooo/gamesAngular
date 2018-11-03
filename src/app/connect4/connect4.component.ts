@@ -4,7 +4,7 @@ import {AuthService} from '../auth.service';
 import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
-import {Connect4Helper} from '../app-tictactoe/Connect4Helper';
+import {Connect4Helper} from './Connect4Helper';
 
 @Component({
   selector: 'app-connect4',
@@ -79,10 +79,10 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
         if(this.p5.currentPlayer === 1 && this.p5.gameState === 1) {
             const clickedX = Math.floor(this.p5.map(this.p5.mouseX, 0, this.p5.width, 0, 7));
             if(clickedX < 0 || clickedX > 6) return;
-            const gridAfterMove = Connect4Helper.doMove(this.p5.grid, clickedX, 1);
-            if(gridAfterMove != null) {
-                this.p5.grid = gridAfterMove;
-                this.p5.finishMove();
+            const moveResult = Connect4Helper.doMove(this.p5.grid, clickedX, 1);
+            if(moveResult != null) {
+                this.p5.grid = moveResult.grid;
+                this.p5.finishMove(moveResult.x, moveResult.y);
             }
         }
     }
@@ -117,8 +117,9 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                         const move = Connect4AI.predict(p.grid);
                         var t1 = performance.now();
                         console.log("Predicting took " + (t1 - t0) + " milliseconds.");
-                        p.grid = Connect4Helper.doMove(p.grid, move, -1);
-                        p.finishMove();
+                        const moveResult = Connect4Helper.doMove(p.grid, move, -1);
+                        p.grid = moveResult.grid;
+                       p.finishMove(moveResult.x, moveResult.y);
                     }
                     p.paintGrid();
                     p.paintLines();
@@ -128,9 +129,9 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                 }
             };
 
-            p.finishMove = () => {
+            p.finishMove = (x: number, y: number) => {
                 p.playsInCurrentGame++;
-                const winner = Connect4Helper.checkWinner(p.grid);
+                const winner = Connect4Helper.checkGameEnd(x, y, p.grid);
                 switch (winner) {
                     case 0:
                         p.currentPlayer *= -1;
