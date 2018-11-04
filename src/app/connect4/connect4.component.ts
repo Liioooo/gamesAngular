@@ -69,7 +69,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
         this.p5.gameState = 1;
         this.p5.score = 0;
         this.p5.allHighscore = 'Laden...';
-        this.p5.currentPlayer = 1;
+        this.p5.currentPlayer =  Math.random() < 0.5 ? 1 : -1;
         this.p5.playsInCurrentGame = 0;
         this.p5.initGrid();
     }
@@ -137,20 +137,35 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                         p.currentPlayer *= -1;
                         if(p.playsInCurrentGame === 42) {
                             p.score = 43;
-                            p.gameState = 2;
+                            p.endGame();
                             p.gameResult = 'Unentschieden';
                         }
                         break;
                     case 1:
                         p.score = 43 + (42-p.playsInCurrentGame);
-                        p.gameState = 2;
+                        p.endGame();
                         p.gameResult = 'Du hast gewonnen!';
                         break;
                     case -1:
                         p.score = p.playsInCurrentGame;
-                        p.gameState = 2;
+                        p.endGame();
                         p.gameResult = 'Du hast verloren!';
                         break;
+                }
+            };
+
+            p.endGame = () => {
+                p.gameState = 2;
+                if(auth.isAuthenticated()) {
+                    scoreService.saveHighscore(gameID, p.score)
+                        .subscribe(data => {
+                            p.allHighscore = data.allHighscore;
+                            p.userHighscore = data.userHighscore
+                        });
+                } else {
+                    scoreService.getHighScore(gameID).subscribe(data => {
+                        p.allHighscore = data.allHighscore;
+                    });
                 }
             };
 

@@ -16,6 +16,8 @@ import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
 import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
 import { Connect4Component } from './connect4/connect4.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HighscoresComponent } from './highscores/highscores.component';
+import { ScoreListComponent } from './score-list/score-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppTictactoeComponent,
     FlappyBirdComponent,
     Connect4Component,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HighscoresComponent,
+    ScoreListComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import {AuthGuardService} from './auth-guard.service';
 import {FlappyBirdComponent} from './flappy-bird/flappy-bird.component';
 import {Connect4Component} from './connect4/connect4.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {HighscoresComponent} from './highscores/highscores.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'tictactoe', component: AppTictactoeComponent },
     { path: 'flappy-bird', component: FlappyBirdComponent },
     { path: '4-gewinnt', component: Connect4Component },
+    { path: 'highscores', component: HighscoresComponent },
     { path: '**', component: PageNotFoundComponent}
 ];
 

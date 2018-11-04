@@ -6,7 +6,6 @@ export class Connect4AI {
     static predict(grid: Array<Array<number>>): number {
         grid = this.cloneData(grid);
         const best = this.minimax(grid, 4, -1);
-        console.log(best)
         return best.move;
     }
 
@@ -17,14 +16,14 @@ export class Connect4AI {
         if(Connect4Helper.checkWinner(grid) !== 0) {
             return {
                 value: -10000,
-                move: 0
+                move: best.move
             };
         }
 
         if(depth === 0) {
             return {
                 value: turn*this.evalPosition(this.cloneData(grid)),
-                move: 0
+                move: best.move
             };
         }
         const allPosiibleMoves = this.getAllPossibleMoves(grid);

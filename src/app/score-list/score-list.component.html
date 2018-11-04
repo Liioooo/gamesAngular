@@ -1,0 +1,16 @@
+<div class="p-3 border-right border-left border-bottom rounded-bottom">
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="border-top: none;" scope="col">Benutzername</th>
+      <th style="border-top: none;" scope="col">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userlist">
+        <td>{{user.username}}</td>
+        <td>{{user.score}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

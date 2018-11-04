@@ -1,0 +1,24 @@
+<div class="m-4">
+  <ngb-tabset type="tabs">
+    <ngb-tab>
+      <ng-template ngbTabTitle>FallingBlocks</ng-template>
+      <ng-template ngbTabContent>
+        <app-score-list [gameID]="0"></app-score-list>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>FlappyBird</ng-template>
+      <ng-template ngbTabContent>
+        <app-score-list [gameID]="1"></app-score-list>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>4 Gewinnt</ng-template>
+      <ng-template ngbTabContent>
+        <app-score-list [gameID]="3"></app-score-list>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

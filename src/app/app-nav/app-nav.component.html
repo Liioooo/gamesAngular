@@ -26,6 +26,9 @@
     </ul>
 
     <ul class="nav navbar-nav w-100 justify-content-end">
+      <li class="nav-item" [class.active]="location.path(false) === '/highscores'">
+        <a class="nav-link" routerLink="/highscores">Highscores</a>
+      </li>
       <li *ngIf="!auth.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/login'">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
