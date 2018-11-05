@@ -75,7 +75,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
     @HostListener('document:keypress', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
-        if (event.key === ' ') {
+        if (event.key === 'w') {
             this.p5.player.jump();
         }
     }

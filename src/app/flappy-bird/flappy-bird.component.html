@@ -3,7 +3,7 @@
   <div id="flappy-bird-canvas" #flappyBirdCanvas></div>
   <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success startButton">Starten</button>
   <div *ngIf="gameNotRunning() || gameEnded()" class="infoText bg-info p-3 text-center rounded">
-    <h5>Steuere den Spieler mit der Leertaste oder mit Mausclicks.</h5>
+    <h5>Steuere den Spieler mit W oder mit Mausclicks.</h5>
   </div>
   <h3 *ngIf="!gameNotRunning()">Score: {{p5.score}}</h3>
   <div class="row" *ngIf="gameEnded()">

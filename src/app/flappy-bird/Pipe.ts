@@ -28,7 +28,7 @@ export class Pipe {
 
     move() {
         if(P5JsHelpers.getFrameRate() < 20) return;
-        this.pX -= this.speed/P5JsHelpers.getFrameRate();
+        this.pX -= P5JsHelpers.convertSpeedToFpsSpeed(this.p, this.speed);
     }
 
     outOfScreen(): boolean {

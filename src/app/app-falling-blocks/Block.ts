@@ -25,7 +25,7 @@ export class Block {
     }
 
     fall() {
-        this.pY += this.fallSpeed / P5JsHelpers.getFrameRate();
+        this.pY += P5JsHelpers.convertSpeedToFpsSpeed(this.p, this.fallSpeed);
         this.checkOutOfCanvas();
     }
 
