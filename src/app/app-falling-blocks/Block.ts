@@ -21,7 +21,7 @@ export class Block {
 
     paint() {
         this.p.fill('#007bff');
-        this.p.rect((this.p.width / this.numberOfBlocks) * this.pX, this.pY, (this.p.width / this.numberOfBlocks), 40);
+        this.p.rect((this.p.width / this.numberOfBlocks) * this.pX, this.p.mapToCanvasSizeY(this.pY), (this.p.width / this.numberOfBlocks), this.p.mapToCanvasSizeY(40));
     }
 
     fall() {
@@ -30,7 +30,7 @@ export class Block {
     }
 
     checkOutOfCanvas() {
-        if(this.pY > this.p.height) {
+        if(this.pY > 650) {
             this.pY = -200 - Math.random() * 300;
             this.fallSpeed = this.baseFallSpeed + Math.random() * 400;
         }

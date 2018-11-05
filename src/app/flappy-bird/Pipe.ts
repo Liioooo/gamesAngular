@@ -16,14 +16,14 @@ export class Pipe {
         this.unitsOnScreen = unitsOnScreen;
     }
 
-    private mapToScreenSize(toMap: number) {
+    private mapToCanvasSizeX(toMap: number) {
         return this.p.map(toMap, 0, this.unitsOnScreen, 0, this.p.width);
     }
 
     paint() {
         this.p.fill('#007bff');
-        this.p.rect(this.mapToScreenSize(this.pX), 0, this.mapToScreenSize(50), this.pY - 200);
-        this.p.rect(this.mapToScreenSize(this.pX), this.pY, this.mapToScreenSize(50), this.p.height - this.pY);
+        this.p.rect(this.mapToCanvasSizeX(this.pX), 0, this.mapToCanvasSizeX(50), this.p.mapToCanvasSizeY(this.pY - 200));
+        this.p.rect(this.mapToCanvasSizeX(this.pX), this.p.mapToCanvasSizeY(this.pY), this.mapToCanvasSizeX(50), this.p.mapToCanvasSizeY(650 - this.pY));
     }
 
     move() {

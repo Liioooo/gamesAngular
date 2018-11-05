@@ -41,7 +41,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
   }
 
   private onWindowResize = (e) => {
-      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth, 650);
+      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth,  this.p5.windowHeight-280);
 
   }
 
@@ -98,7 +98,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
     return function (p: any) {
 
         p.setup = () => {
-            p.createCanvas(width, 650).parent('falling-block-canvas');
+            p.createCanvas(width, p.windowHeight-280).parent('falling-block-canvas');
             p.frameRate(60);
             P5JsHelpers.initFrameRateAvg();
 
@@ -109,7 +109,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
             p.blocks = [];
             p.score = 0;
             p.gameState = 0; //0>noGame 1>running 2>endAnimation 3>finished
-            p.player = new Player(p, Math.floor(p.numberOfBlocks/2), p.height-75, p.numberOfBlocks);
+            p.player = new Player(p, Math.floor(p.numberOfBlocks/2), 575, p.numberOfBlocks);
             p.initBlocks();
 
         };
@@ -140,6 +140,10 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
                     fallBlocks();
                     break;
             }
+        };
+
+        p.mapToCanvasSizeY = (toMap: number) => {
+            return p.map(toMap, 0, 650, 0, p.height);
         };
 
         p.initBlocks = () => {
@@ -189,7 +193,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
             let playerPos = p.player.getPositionDestroyd();
             endAnimationPos += 30;
             p.fill('#FF2A19');
-            p.ellipse(playerPos.pX, playerPos.pY, endAnimationPos);
+            p.ellipse(playerPos.pX, p.mapToCanvasSizeY(playerPos.pY), endAnimationPos);
             if(endAnimationPos > p.width/p.numberOfBlocks + 50) {
                 p.gameState = 3;
             }

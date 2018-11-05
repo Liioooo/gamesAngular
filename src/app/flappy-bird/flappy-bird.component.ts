@@ -41,7 +41,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
     }
 
     private onWindowResize = (e) => {
-        this.p5.resizeCanvas(this.flappyBirdCanvas.nativeElement.offsetWidth, 650);
+        this.p5.resizeCanvas(this.flappyBirdCanvas.nativeElement.offsetWidth, this.p5.windowHeight-280);
 
     }
 
@@ -90,7 +90,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
         return function (p: any) {
 
             p.setup = () => {
-                p.createCanvas(width, 650).parent('flappy-bird-canvas');
+                p.createCanvas(width, p.windowHeight-280).parent('flappy-bird-canvas');
                 p.frameRate(60);
                 P5JsHelpers.initFrameRateAvg();
 
@@ -102,7 +102,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 p.userHighscore = 'Laden...';
 
                 p.pipes = [];
-                p.player = new Player(p, 200, p.height / 2, p.unitsOnScreen);
+                p.player = new Player(p, 200, 650/2, p.unitsOnScreen);
 
                 p.initPipes();
             };
@@ -130,9 +130,13 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 }
             };
 
+            p.mapToCanvasSizeY = (toMap: number) => {
+                return p.map(toMap, 0, 650, 0, p.height);
+            };
+
             p.initPipes = () => {
                 for (let i = 0; i < 6; i++) {
-                    p.pipes[i] = new Pipe(p, 700 + 270 * i, p.random(220, p.height - 20), p.unitsOnScreen);
+                    p.pipes[i] = new Pipe(p, 700 + 270 * i, p.random(220, 580), p.unitsOnScreen);
                 }
             };
 
@@ -145,7 +149,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
             p.checkPipeOuside = () => {
                 if (p.pipes[0].outOfScreen()) {
-                    p.pipes.push(new Pipe(p, p.pipes[p.pipes.length - 1].getPX + 270, p.random(220, p.height - 20), p.unitsOnScreen));
+                    p.pipes.push(new Pipe(p, p.pipes[p.pipes.length - 1].getPX + 270, p.random(220, 580), p.unitsOnScreen));
                     p.pipes.shift();
                 }
             };

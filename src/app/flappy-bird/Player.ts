@@ -18,13 +18,13 @@ export class Player {
         this.fallSpeed = 0;
     }
 
-    private mapToScreenSize(toMap: number) {
+    private mapCanavasSizeX(toMap: number) {
         return this.p.map(toMap, 0, this.unitsOnScreen, 0, this.p.width);
     }
 
     paint() {
         this.p.fill('#343a40');
-        this.p.ellipse(this.mapToScreenSize(this.pX), this.pY, this.mapToScreenSize(50), 50);
+        this.p.ellipse(this.mapCanavasSizeX(this.pX), this.p.mapToCanvasSizeY(this.pY), this.mapCanavasSizeX(50), this.p.mapToCanvasSizeY(50));
     }
 
     fall() {
@@ -41,7 +41,7 @@ export class Player {
     }
 
     setMiddle() {
-        this.pY = this.p.height/2;
+        this.pY = 650/2;
     }
 
     jump() {

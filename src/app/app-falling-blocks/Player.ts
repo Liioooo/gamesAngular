@@ -16,7 +16,7 @@ export class Player {
 
     paintPlayer() {
         this.p.fill('#343a40');
-        this.p.rect((this.p.width/this.numberOfBlocks) * this.pX, this.pY, (this.p.width/this.numberOfBlocks), 50);
+        this.p.rect((this.p.width/this.numberOfBlocks) * this.pX, this.p.mapToCanvasSizeY(this.pY), (this.p.width/this.numberOfBlocks), this.p.mapToCanvasSizeY(50));
     }
 
     moveLeft() {
