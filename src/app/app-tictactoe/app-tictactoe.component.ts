@@ -9,7 +9,6 @@ import {NeuralNet} from './NeuralNet';
 })
 export class AppTictactoeComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild("ticTacToeCanvas") tictavToeCanvas: ElementRef;
     public p5;
 
     private gameID: number = 2;
@@ -36,22 +35,12 @@ export class AppTictactoeComponent implements AfterViewInit, OnDestroy {
     };
 
     private onWindowResize = (e) => {
-      let newSize = this.getSizeForCanavs();
+        let newSize = this.getSizeForCanavs();
         this.p5.resizeCanvas(newSize, newSize);
-        if(this.p5.height < 700) {
-            this.tictavToeCanvas.nativeElement.style.height = 'unset';
-        } else {
-            this.tictavToeCanvas.nativeElement.style.height = '700px';
-        }
-
     };
 
     private getSizeForCanavs(): number {
-      if(this.tictavToeCanvas.nativeElement.offsetWidth > this.tictavToeCanvas.nativeElement.offsetHeight) {
-          return this.tictavToeCanvas.nativeElement.offsetHeight
-      } else {
-        return this.tictavToeCanvas.nativeElement.offsetWidth;
-      }
+      return window.innerHeight < window.innerWidth ? window.innerHeight - 230 : window.innerWidth - 230;
     }
 
     public gameNotRunning(): boolean {
@@ -190,16 +179,15 @@ export class AppTictactoeComponent implements AfterViewInit, OnDestroy {
                         p.currentPlayer *= -1;
                         if(p.playsInCurrentGame === 9) {
                             p.gameResult = 'Unentschieden';
-                            setTimeout(() => {p.gameState = 2;}, 800);
+                            p.gameState = 2;
                         }
                         break;
                     case 1:
                         p.gameResult = 'Du hast gewonnen!';
-                        setTimeout(() => {p.gameState = 2;}, 800);
-                        break;
+                        p.gameState = 2;
                     case -1:
                         p.gameResult = 'Du hast verloren!';
-                        setTimeout(() => {p.gameState = 2;}, 800);
+                        p.gameState = 2;
                         break;
                 }
             }

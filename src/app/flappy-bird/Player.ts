@@ -28,7 +28,7 @@ export class Player {
     }
 
     fall() {
-        if(this.pY <= this.p.height - 25) {
+        if(this.pY <= 625) {
             this.fallSpeed += P5JsHelpers.convertSpeedToFpsSpeed(this.p, 25);
             this.pY += this.fallSpeed;
         } else if(this.fallSpeed < 0) {

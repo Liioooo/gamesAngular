@@ -41,7 +41,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
     }
 
     private onWindowResize = (e) => {
-        this.p5.resizeCanvas(this.connect4Canvas.nativeElement.offsetWidth, 650);
+        this.p5.resizeCanvas(this.connect4Canvas.nativeElement.offsetWidth, window.innerHeight-300);
 
     }
 
@@ -92,7 +92,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
         return function (p: any) {
 
             p.setup = () => {
-                p.createCanvas(width, 650).parent('connect4-canvas');
+                p.createCanvas(width, window.innerHeight-350).parent('connect4-canvas');
                 p.frameRate(60);
 
                 p.unitsOnScreen = 1200;
@@ -192,7 +192,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
             p.paintGrid = () => {
               p.ellipseMode(p.CENTER);
               p.noStroke();
-              const size = p.width -190 > p.height ? 100 : p.width/9;
+              const size = p.width - 200 > p.height ? 100 : p.width/9;
                 for (let i = 0; i < p.grid.length; i++) {
                     for (let j = 0; j < p.grid[i].length; j++) {
                         const coords = p.mapToScreenSize(i, j);

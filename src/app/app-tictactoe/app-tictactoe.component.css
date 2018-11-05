@@ -1,7 +1,7 @@
 .startButton {
     position: absolute;
     left: 140px;
-    top: 300px;
+    top: 30%;
     z-index: 1060;
     width: 400px;
     height: 140px;
@@ -10,12 +10,8 @@
 
 .infoText {
     position: absolute;
-    top: 500px;
+    top: 50%;
     left: 140px;
     z-index: 1060;
     width: 400px;
-}
-
-#ticTacToe-canvas {
-    height: 700px;
 }

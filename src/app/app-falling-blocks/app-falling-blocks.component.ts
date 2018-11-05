@@ -41,7 +41,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
   }
 
   private onWindowResize = (e) => {
-      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth,  this.p5.windowHeight-280);
+      this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth,  window.innerHeight-280);
 
   }
 
@@ -98,7 +98,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
     return function (p: any) {
 
         p.setup = () => {
-            p.createCanvas(width, p.windowHeight-280).parent('falling-block-canvas');
+            p.createCanvas(width, window.innerHeight-280).parent('falling-block-canvas');
             p.frameRate(60);
             P5JsHelpers.initFrameRateAvg();
 
