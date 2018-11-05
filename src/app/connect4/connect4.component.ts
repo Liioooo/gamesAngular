@@ -192,7 +192,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
             p.paintGrid = () => {
               p.ellipseMode(p.CENTER);
               p.noStroke();
-              const size = p.width - 200 > p.height ? 100 : p.width/9;
+              const size = p.height/7;
                 for (let i = 0; i < p.grid.length; i++) {
                     for (let j = 0; j < p.grid[i].length; j++) {
                         const coords = p.mapToScreenSize(i, j);
