@@ -20,6 +20,7 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
 
   constructor(private scoreService: ScoreService, public auth: AuthService) {
       window.onresize = this.onWindowResize;
+      document.onvisibilitychange = this.onVisibilityChange;
   }
 
   ngOnDestroy() {
@@ -44,6 +45,11 @@ export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
       this.p5.resizeCanvas(this.fallingBlockCanvas.nativeElement.offsetWidth,  window.innerHeight-280);
 
   }
+
+  private onVisibilityChange = (e) => {
+      clearInterval(this.p5.scoreCounterIntervall);
+      this.p5.gameState = 0;
+  };
 
   public gameNotRunning(): boolean {
       if (typeof this.p5 === 'undefined') {

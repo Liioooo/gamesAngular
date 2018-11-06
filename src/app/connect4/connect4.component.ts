@@ -187,6 +187,9 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                 for (let i = 1; i < 7; i++) {
                   p.line(p.width/7*i, 0, p.width/7*i, p.height);
                 }
+                for (let i = 1; i < 6; i++) {
+                    p.line(0, p.height/6*i, p.width, p.height/6*i);
+                }
             };
 
             p.paintGrid = () => {

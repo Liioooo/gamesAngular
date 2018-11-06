@@ -9,7 +9,8 @@ export class NeuralNet {
     }
 
     async load() {
-        this.model = await tf.loadModel('http://localhost:4200/assets/tf_tictactoeModel/ticTacToe_Model_tfjs.json');
+        const host = window.location.protocol + "//" + window.location.host;
+        this.model = await tf.loadModel(host + '/assets/tf_tictactoeModel/ticTacToe_Model_tfjs.json');
         this.model.compile({
             optimizer: 'rmsprop',
             loss: 'categoricalCrossentropy',
