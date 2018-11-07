@@ -4,10 +4,10 @@ import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-nav',
-  templateUrl: './app-nav.component.html',
-  styleUrls: ['./app-nav.component.css']
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
 })
-export class AppNavComponent implements OnInit {
+export class NavComponent implements OnInit {
 
   public isCollapsed: boolean = true;
 

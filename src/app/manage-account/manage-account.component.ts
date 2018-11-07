@@ -4,10 +4,10 @@ import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-manage-account',
-  templateUrl: './app-manage-account.component.html',
-  styleUrls: ['./app-manage-account.component.css']
+  templateUrl: './manage-account.component.html',
+  styleUrls: ['./manage-account.component.css']
 })
-export class AppManageAccountComponent implements OnInit {
+export class ManageAccountComponent implements OnInit {
 
   public newPasswordsNotEqual: boolean;
   public changePasswordForm: FormGroup;

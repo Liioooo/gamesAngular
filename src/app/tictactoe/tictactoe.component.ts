@@ -4,10 +4,10 @@ import {NeuralNet} from './NeuralNet';
 
 @Component({
   selector: 'app-tictactoe',
-  templateUrl: './app-tictactoe.component.html',
-  styleUrls: ['./app-tictactoe.component.css']
+  templateUrl: './tictactoe.component.html',
+  styleUrls: ['./tictactoe.component.css']
 })
-export class AppTictactoeComponent implements AfterViewInit, OnDestroy {
+export class TictactoeComponent implements AfterViewInit, OnDestroy {
 
     public p5;
 

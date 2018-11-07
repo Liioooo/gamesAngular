@@ -8,10 +8,10 @@ import {P5JsHelpers} from '../P5JsHelpers';
 
 @Component({
   selector: 'app-falling-blocks',
-  templateUrl: './app-falling-blocks.component.html',
-  styleUrls: ['./app-falling-blocks.component.css']
+  templateUrl: './falling-blocks.component.html',
+  styleUrls: ['./falling-blocks.component.css']
 })
-export class AppFallingBlocksComponent implements OnDestroy, AfterViewInit {
+export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
 
   @ViewChild("fallingBlockCanvas") fallingBlockCanvas: ElementRef;
   public p5;

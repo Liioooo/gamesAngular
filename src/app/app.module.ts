@@ -5,15 +5,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AppNavComponent } from './app-nav/app-nav.component';
+import { NavComponent } from './nav/nav.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppDashboardComponent } from './app-dashboard/app-dashboard.component';
-import { AppLoginComponent } from './app-login/app-login.component';
-import { AppLoginFormComponent } from './app-login-form/app-login-form.component';
-import {RegisterFormComponent} from './register-form/register-form.component';
-import { AppManageAccountComponent } from './app-manage-account/app-manage-account.component';
-import { AppFallingBlocksComponent } from './app-falling-blocks/app-falling-blocks.component';
-import { AppTictactoeComponent } from './app-tictactoe/app-tictactoe.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { RegisterFormComponent} from './register-form/register-form.component';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
+import { FallingBlocksComponent } from './falling-blocks/falling-blocks.component';
+import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
 import { Connect4Component } from './connect4/connect4.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -24,19 +24,19 @@ import { ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    AppNavComponent,
-    AppDashboardComponent,
-    AppLoginComponent,
-    AppLoginFormComponent,
-    AppManageAccountComponent,
-    AppFallingBlocksComponent,
-    AppTictactoeComponent,
+    NavComponent,
+    DashboardComponent,
+    LoginComponent,
+    LoginFormComponent,
+    ManageAccountComponent,
+    FallingBlocksComponent,
+    TictactoeComponent,
     FlappyBirdComponent,
     Connect4Component,
     PageNotFoundComponent,
     HighscoresComponent,
     ScoreListComponent,
-      RegisterFormComponent
+      RegisterFormComponent,
   ],
   imports: [
     BrowserModule,

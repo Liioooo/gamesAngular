@@ -6,6 +6,7 @@
       <div class="invalid-feedback d-block" *ngIf="submitted && f.username.errors">
         <span *ngIf="f.username.errors.required">Bitte einen Benutzernamen eingeben!</span>
         <span *ngIf="f.username.errors.minlength">Der Benutzrname muss mindestens 3 Zeichen lang sein.</span>
+        <span *ngIf="f.username.errors.isAvailable">Der Benutzrname ist nicht verfügbar!</span>
       </div>
     </div>
     <div class="form-group">

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FormValidators} from '../../FormValidators';
+import {PasswordValidator, UsernameValidator} from '../FormValidators';
 
 @Component({
   selector: 'app-register-form',
@@ -17,11 +17,11 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
-          username: ['', [Validators.required, Validators.minLength(3)]],
+          username: ['', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable],
           password: ['', Validators.required],
           password1: ['', Validators.required]
       }, {
-          validator: FormValidators.samePasswords
+          validator: PasswordValidator.samePasswords
       });
   }
 

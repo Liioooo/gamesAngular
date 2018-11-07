@@ -4,10 +4,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
-  templateUrl: './app-login-form.component.html',
-  styleUrls: ['./app-login-form.component.css']
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css']
 })
-export class AppLoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;

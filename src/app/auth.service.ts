@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 
+export interface UsernameAvailableInterface {
+    available: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -107,6 +111,12 @@ export class AuthService {
                 }
                 this.lastError = data['error'];
             });
+    }
+
+    isUsernameAvailable(username: string) {
+        return this.http.post<UsernameAvailableInterface>('/api/isUserAvailable.php', {
+            username: username
+        });
     }
 
 }
