@@ -1,13 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormValidators} from '../../FormValidators';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './app-login-form.component.html',
-  styleUrls: ['./app-login-form.component.css']
+  selector: 'app-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.css']
 })
-export class AppLoginFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
@@ -16,8 +17,11 @@ export class AppLoginFormComponent implements OnInit {
 
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]
+          username: ['', [Validators.required, Validators.minLength(3)]],
+          password: ['', Validators.required],
+          password1: ['', Validators.required]
+      }, {
+          validator: FormValidators.samePasswords
       });
   }
 

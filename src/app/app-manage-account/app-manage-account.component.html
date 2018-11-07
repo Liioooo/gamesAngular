@@ -1,6 +1,6 @@
 <div class=" m-3 p-3 border rounded">
   <h2>Benutzer Einstellungen</h2>
-  <form (submit)="handleChangeUsernamerClick($event)">
+  <form [formGroup]="changePasswordForm" (submit)="handleChangeUsernamerClick($event)">
     <div class="form-group">
       <label for="newUsername">Benutzernamen ändern:</label>
       <input type="text" class="form-control" id="newUsername" placeholder="Neuen Benutzernamen" name="newUsername" required>
@@ -9,7 +9,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Benutzernamen ändern</button>
   </form>
-  <form class="mt-4" (submit)="handleChangePasswordClick($event)">
+  <form class="mt-4" [formGroup]="changeUsernameForm" (submit)="handleChangePasswordClick($event)">
     <h5>Passwort ändern:</h5>
     <div class="form-group">
       <label for="oldPassword">Altes Passwort:</label>
