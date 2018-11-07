@@ -2,14 +2,14 @@
   <form (submit)="handleSubmitClick($event)">
     <div class="form-group">
       <label for="username">Benutzername</label>
-      <input type="text" class="form-control" id="username" placeholder="Benutzername eingeben" name="username" required>
-      <span class="error text-danger" [ngStyle]="{'display': auth.lastError === '23000' && type === 'Registrieren' ? 'block' : 'none'}">Benutzername nicht verfügbar!</span>
-      <span class="error text-danger" [ngStyle]="{'display': auth.lastError === 'noSuchUser' && type === 'Einloggen' ? 'block' : 'none'}">Benutzername existiert nicht!</span>
+      <input type="text" class="form-control" [class.is-invalid]="(auth.lastError === '23000' && type === 'Registrieren') || (auth.lastError === 'noSuchUser' && type === 'Einloggen')" id="username" placeholder="Benutzername eingeben" name="username" required>
+      <span class="invalid-feedback" *ngIf="auth.lastError === '23000' && type === 'Registrieren'">Benutzername nicht verfügbar!</span>
+      <span class="invalid-feedback" *ngIf="auth.lastError === 'noSuchUser' && type === 'Einloggen'">Benutzername existiert nicht!</span>
     </div>
     <div class="form-group">
       <label for="password">Passwort:</label>
-      <input type="password" class="form-control" id="password" placeholder="Passwort eingeben" name="password" required="required">
-      <span class="error text-danger" [ngStyle]="{'display': auth.lastError === 'invalid' && type === 'Einloggen' ? 'block' : 'none'}">Passwort falsch!</span>
+      <input type="password" class="form-control" [class.is-invalid]="auth.lastError === 'invalid'" id="password" placeholder="Passwort eingeben" name="password" required>
+      <span class="invalid-feedback" *ngIf="auth.lastError === 'invalid' && type === 'Einloggen'">Passwort falsch!</span>
     </div>
     <button type="submit" class="btn btn-primary">{{type}}</button>
   </form>
