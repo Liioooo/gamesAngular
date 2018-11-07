@@ -1,31 +1,44 @@
 <div class=" m-3 p-3 border rounded">
   <h2>Benutzer Einstellungen</h2>
-  <form [formGroup]="changePasswordForm" (submit)="handleChangeUsernamerClick($event)">
+  <form [formGroup]="changeUsernameForm" (submit)="handleChangeUsernameClick()">
     <div class="form-group">
       <label for="newUsername">Benutzernamen ändern:</label>
-      <input type="text" class="form-control" id="newUsername" placeholder="Neuen Benutzernamen" name="newUsername" required>
-      <span class="error text-danger" [ngStyle]="{'display': auth.lastError === '23000' ? 'block' : 'none'}">Benutzername nicht verfügbar!</span>
-      <span class="text-success" [ngStyle]="{'display': auth.changedUserSuccess ? 'block' : 'none'}">Benutzername erfolgreich geändert!</span>
+      <input type="text" class="form-control" [class.is-invalid]="changeUsernameSubmitted && usernameForm.newUsername.errors" id="newUsername" placeholder="Neuen Benutzernamen" name="newUsername" formControlName="newUsername">
+      <div class="invalid-feedback d-block" *ngIf="changeUsernameSubmitted && usernameForm.newUsername.errors">
+        <span *ngIf="usernameForm.newUsername.errors.required">Bitte einen Benutzernamen eingeben!</span>
+        <span *ngIf="usernameForm.newUsername.errors.minlength">Der Benutzrname muss mindestens 3 Zeichen lang sein.</span>
+        <span *ngIf="usernameForm.newUsername.errors.isNotAvailable">Der Benutzrname ist nicht verfügbar!</span>
+      </div>
+      <span class="valid-feedback d-block" *ngIf="changeUsernameSuccess">Benutzernamen erfolgreich geändert!</span>
     </div>
-    <button type="submit" class="btn btn-primary">Benutzernamen ändern</button>
+    <button class="btn btn-primary">Benutzernamen ändern</button>
   </form>
-  <form class="mt-4" [formGroup]="changeUsernameForm" (submit)="handleChangePasswordClick($event)">
+  <form class="mt-4" [formGroup]="changePasswordForm" (submit)="handleChangePasswordClick()">
     <h5>Passwort ändern:</h5>
     <div class="form-group">
       <label for="oldPassword">Altes Passwort:</label>
-      <input type="password" class="form-control" id="oldPassword" placeholder="Altes Passwort eingeben" name="oldPassword" required>
-      <span class="error text-danger" [ngStyle]="{'display': auth.lastError === 'invalid' ? 'block' : 'none'}">Passwort falsch!</span>
+      <input type="password" class="form-control" [class.is-invalid]="changePasswordSubmitted && passwordForm.oldPassword.errors" id="oldPassword" placeholder="Altes Passwort eingeben" name="oldPassword" formControlName="oldPassword">
+      <div class="invalid-feedback d-block" *ngIf="changePasswordSubmitted && passwordForm.oldPassword.errors">
+        <span *ngIf="passwordForm.oldPassword.errors.required">Bitte das alte Passwort eingeben!</span>
+        <span *ngIf="passwordForm.oldPassword.errors.invalidPW">Passwort Falsch!</span>
+      </div>
     </div>
     <div class="form-group">
-      <label for="newPassword1">Neues Passwort:</label>
-      <input type="password" class="form-control" id="newPassword1" placeholder="Neues Passwort eingeben" name="newPassword1" required>
+      <label for="password">Neues Passwort:</label>
+      <input type="password" class="form-control" [class.is-invalid]="changePasswordSubmitted && passwordForm.password.errors" id="password" placeholder="Neues Passwort eingeben" name="password" formControlName="password">
+      <div class="invalid-feedback d-block" *ngIf="changePasswordSubmitted && passwordForm.password.errors">
+        <span *ngIf="passwordForm.password.errors.required">Bitte ein Passwort eingeben!</span>
+      </div>
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" id="newPassword2" placeholder="Neues Passwort wiederholen" name="newPassword2" required>
-      <span class="error text-danger" [ngStyle]="{'display': newPasswordsNotEqual ? 'block' : 'none'}">Passwörter sind nicht gleich!</span>
-      <span class="text-success" [ngStyle]="{'display': auth.changedPassSuccess ? 'block' : 'none'}">Passwort erfolgreich geändert!</span>
+      <input type="password" class="form-control" [class.is-invalid]="changePasswordSubmitted && passwordForm.password1.errors" id="password1" placeholder="Neues Passwort wiederholen" name="password1" formControlName="password1">
+      <div class="invalid-feedback d-block" *ngIf="changePasswordSubmitted && passwordForm.password1.errors">
+        <span *ngIf="passwordForm.password1.errors.required">Bitte das Passwort erneut eingeben!</span>
+        <span *ngIf="passwordForm.password1.errors.matchPassword">Die Passwörter sind nicht gleich!</span>
+      </div>
+      <span class="valid-feedback d-block" *ngIf="changePasswordSuccess">Passwort erfolgreich geändert!</span>
     </div>
-    <button type="submit" class="btn btn-primary">Passwort ändern</button>
+    <button class="btn btn-primary">Passwort ändern</button>
   </form>
   <div class="mt-3">
     <button class="btn btn-danger" style="width: 100%" (click)="handleLogoutClick()">Ausloggen</button>

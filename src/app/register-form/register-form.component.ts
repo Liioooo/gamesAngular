@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidator, UsernameValidator} from '../FormValidators';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register-form',
@@ -13,19 +13,19 @@ export class RegisterFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-          username: ['', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable],
-          password: ['', Validators.required],
-          password1: ['', Validators.required]
+      this.loginForm = new FormGroup({
+          username: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable),
+          password: new FormControl('', Validators.required),
+          password1: new FormControl('', Validators.required),
       }, {
-          validator: PasswordValidator.samePasswords
+          validators: [PasswordValidator.samePasswords],
       });
   }
 
-  get f() { return this.loginForm.controls; }
+  get form() { return this.loginForm.controls; }
 
   handleSubmitClick() {
       this.submitted = true;
@@ -34,15 +34,12 @@ export class RegisterFormComponent implements OnInit {
           return;
       }
 
-    // const username = event.target.querySelector('#username').value;
-    // const password = event.target.querySelector('#password').value;
-    // switch (this.type) {
-    //     case 'Einloggen':
-    //         this.auth.login(username, password);
-    //       break;
-    //     case 'Registrieren':
-    //         this.auth.register(username, password);
-    //       break;
-    // }
+      const username = this.loginForm.controls.username.value;
+      const password = this.loginForm.controls.password.value;
+      this.auth.register(username, password).then(result => {
+          if(result === 'alreadyExists') {
+              this.loginForm.controls.username.setErrors({isNotAvailable: true});
+          }
+      });
   }
 }

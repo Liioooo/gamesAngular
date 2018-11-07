@@ -28,7 +28,7 @@ export class UsernameValidator {
                 if(data.available == '1') {
                     resolve(null);
                 } else {
-                    resolve({isAvailable: true});
+                    resolve({isNotAvailable: true});
                 }
             });
         });

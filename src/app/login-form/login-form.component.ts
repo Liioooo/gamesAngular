@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -21,7 +21,7 @@ export class LoginFormComponent implements OnInit {
       });
   }
 
-  get f() { return this.loginForm.controls; }
+  get form() { return this.loginForm.controls; }
 
   handleSubmitClick() {
       this.submitted = true;
@@ -30,15 +30,14 @@ export class LoginFormComponent implements OnInit {
           return;
       }
 
-    // const username = event.target.querySelector('#username').value;
-    // const password = event.target.querySelector('#password').value;
-    // switch (this.type) {
-    //     case 'Einloggen':
-    //         this.auth.login(username, password);
-    //       break;
-    //     case 'Registrieren':
-    //         this.auth.register(username, password);
-    //       break;
-    // }
+      const username = this.loginForm.controls.username.value;
+      const password = this.loginForm.controls.password.value;
+      this.auth.login(username, password).then(result => {
+          if(result === 'noSuchUser') {
+              this.loginForm.controls.username.setErrors({noSuchUser: true})
+          } else if(result === 'invalid') {
+              this.loginForm.controls.password.setErrors({invalidPW: true})
+          }
+      });
   }
 }

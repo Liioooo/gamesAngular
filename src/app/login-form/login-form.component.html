@@ -1,17 +1,19 @@
 <div class="p-3 border-right border-left border-bottom rounded-bottom">
   <form [formGroup]="loginForm" (ngSubmit)="handleSubmitClick()">
     <div class="form-group">
-      <label for="username">Benutzername</label>
-      <input type="text" class="form-control" placeholder="Benutzernamen eingeben" id="username" name="username" formControlName="username">
-      <div class="invalid-feedback d-block" *ngIf="submitted && f.username.errors">
-        <span *ngIf="f.username.errors.required">Bitte einen Benutzernamen eingeben!</span>
+      <label for="username">Benutzername:</label>
+      <input type="text" class="form-control" [class.is-invalid]="submitted && form.username.errors" placeholder="Benutzernamen eingeben" id="username" name="username" formControlName="username">
+      <div class="invalid-feedback d-block" *ngIf="submitted && form.username.errors">
+        <span *ngIf="form.username.errors.required">Bitte einen Benutzernamen eingeben!</span>
+        <span *ngIf="form.username.errors.noSuchUser">Benutzername nicht vorhanden!</span>
       </div>
     </div>
     <div class="form-group">
       <label for="password">Passwort:</label>
-      <input type="password" class="form-control" placeholder="Passwort eingeben" id="password" name="password" formControlName="password">
-      <div class="invalid-feedback d-block" *ngIf="submitted && f.password.errors">
-        <span *ngIf="f.password.errors.required">Bitte ein Passwort eingeben!</span>
+      <input type="password" class="form-control" [class.is-invalid]="submitted && form.password.errors" placeholder="Passwort eingeben" id="password" name="password" formControlName="password">
+      <div class="invalid-feedback d-block" *ngIf="submitted && form.password.errors">
+        <span *ngIf="form.password.errors.required">Bitte ein Passwort eingeben!</span>
+        <span *ngIf="form.password.errors.invalidPW">Falsches Passwort!</span>
       </div>
     </div>
     <button class="btn btn-primary">Anmelden</button>
