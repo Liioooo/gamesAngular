@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PasswordValidator, UsernameValidator} from '../FormValidators';
+import {FileValidator, PasswordValidator, UsernameValidator} from '../FormValidators';
 
 @Component({
   selector: 'app-manage-account',
@@ -12,10 +12,14 @@ export class ManageAccountComponent implements OnInit {
 
   public changePasswordForm: FormGroup;
   public changeUsernameForm: FormGroup;
+  public changePictureForm: FormGroup;
   public changePasswordSubmitted = false;
   public changeUsernameSubmitted = false;
+  public changePictureSubmitted = false;
   public changePasswordSuccess = false;
   public changeUsernameSuccess = false;
+
+  private file: any;
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder) {}
 
@@ -30,11 +34,18 @@ export class ManageAccountComponent implements OnInit {
       }, {
           validators: PasswordValidator.samePasswords
       });
+      this.changePictureForm = new FormGroup({
+          fileInput: new FormControl('', [Validators.required, FileValidator.fileValid])
+      });
   }
 
   get usernameForm() { return this.changeUsernameForm.controls; }
 
   get passwordForm() { return this.changePasswordForm.controls; }
+
+  get pictureForm() { return this.changePictureForm.controls; }
+
+  get filePath() { return this.changePictureForm.controls.fileInput.value.replace(/\\$/,'').split('\\').pop(); }
 
   handleLogoutClick() {
     this.auth.logout();
@@ -44,6 +55,7 @@ export class ManageAccountComponent implements OnInit {
       this.changeUsernameSubmitted = true;
 
       if(this.changeUsernameForm.invalid) {
+          this.changeUsernameSuccess = false;
           return;
       }
 
@@ -60,9 +72,11 @@ export class ManageAccountComponent implements OnInit {
         }
       });
   }
+
   handleChangePasswordClick() {
       this.changePasswordSubmitted = true;
       if(this.changePasswordForm.invalid) {
+          this.changePasswordSuccess = false;
           return;
       }
 
@@ -81,4 +95,30 @@ export class ManageAccountComponent implements OnInit {
           }
       });
   }
+
+  onFileChange(event) {
+      let reader = new FileReader();
+
+      if(event.target.files && event.target.files.length) {
+          const [file] = event.target.files;
+          reader.readAsDataURL(file);
+
+          reader.onload = () => {
+              this.file = reader.result;
+          };
+      }
+  }
+
+  handleChangePictureClick() {
+      this.changePictureSubmitted = true;
+      if(this.changePictureForm.invalid) {
+          return;
+      }
+      console.log(this.file);
+
+      this.auth.changePicture(this.file).then(result => {
+          console.log(result);
+      });
+  }
+
 }

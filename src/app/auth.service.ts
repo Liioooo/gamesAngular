@@ -21,6 +21,7 @@ export class AuthService {
                         sessionStorage.setItem('authenticated', 'true');
                         sessionStorage.setItem('username', data['username']);
                         sessionStorage.setItem('userID', data['userID']);
+                        sessionStorage.setItem('picturePath', data['picture']);
                         this.router.navigate(['dashboard']);
                     }
                     resolve(data['error']);
@@ -36,6 +37,7 @@ export class AuthService {
                         sessionStorage.setItem('authenticated', 'true');
                         sessionStorage.setItem('username', data['username']);
                         sessionStorage.setItem('userID',  data['userID']);
+                        sessionStorage.setItem('picturePath', data['picture']);
                         this.router.navigate(['dashboard']);
                     }
                     resolve(data['error']);
@@ -103,6 +105,21 @@ export class AuthService {
                     this.setUserLoggedOut();
                 }
             });
+        });
+    }
+
+    changePicture(file: any): Promise<string> {
+        return new Promise<string>(resolve => {
+            this.http.post('api/editUser.php', {
+                'userID': sessionStorage.getItem('userID'),
+                'action': 'changePicture',
+                'file': file
+            }).subscribe(data => {
+                if(data['error'] == '0') {
+                    sessionStorage.setItem('picturePath', data['picture']);
+                }
+                resolve(data['error']);
+            })
         });
     }
 

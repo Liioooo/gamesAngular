@@ -154,7 +154,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
 
         p.initBlocks = () => {
             for (let i = 0; i < p.numberOfBlocks; i++) {
-                p.blocks[i] = new Block(p, i, 6, 150)
+                p.blocks[i] = new Block(p, i, 6, 240)
             }
         };
 
