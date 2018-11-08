@@ -45,7 +45,7 @@
     </div>
     <div class="col-md-6 col-lg-5 col-xl-4 mt-3 mt-md-0">
       <p>Profilbild ändern:</p>
-      <img src="/assets/default-profile-img.svg" class="card-img" style="height: 320px;">
+      <img [src]="auth.getProfilePicturePath()" class="rounded-circle" style="height: 320px; width: 320px;">
       <form [formGroup]="changePictureForm" (submit)="handleChangePictureClick()" class="col pt-3 pl-md-5">
         <label class="w-100">
           <input formControlName="fileInput" (change)="onFileChange($event)" accept="image/*" name="fileInput" id="fileInput" class="custom-file-input d-none" type="file"/>
@@ -55,7 +55,7 @@
         <button class="btn btn-primary">Profilbild ändern</button>
         <div class="invalid-feedback d-block" *ngIf="changePictureSubmitted && pictureForm.fileInput.errors">
           <span *ngIf="pictureForm.fileInput.errors.required">Bitte eine Datei wählen!</span>
-          <span *ngIf="pictureForm.fileInput.errors.invaldFile">Ungültige Datei!</span>
+          <span *ngIf="!pictureForm.fileInput.errors.required && pictureForm.fileInput.errors.invaldFile">Ungültige Datei!</span>
         </div>
       </form>
     </div>

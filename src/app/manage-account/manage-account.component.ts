@@ -13,15 +13,17 @@ export class ManageAccountComponent implements OnInit {
   public changePasswordForm: FormGroup;
   public changeUsernameForm: FormGroup;
   public changePictureForm: FormGroup;
+
   public changePasswordSubmitted = false;
   public changeUsernameSubmitted = false;
   public changePictureSubmitted = false;
+
   public changePasswordSuccess = false;
   public changeUsernameSuccess = false;
 
   private file: any;
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder) {}
+  constructor(public auth: AuthService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
       this.changeUsernameForm = new FormGroup({
@@ -111,13 +113,17 @@ export class ManageAccountComponent implements OnInit {
 
   handleChangePictureClick() {
       this.changePictureSubmitted = true;
-      if(this.changePictureForm.invalid) {
+      if(this.changePictureForm.invalid || this.file === undefined) {
           return;
       }
-      console.log(this.file);
 
       this.auth.changePicture(this.file).then(result => {
-          console.log(result);
+          if(result == '0') {
+              this.changePictureSubmitted = false;
+              this.auth.updateProfilePicturePath();
+          } else {
+              this.changePictureForm.controls.fileInput.setErrors({invalidFile: true})
+          }
       });
   }
 

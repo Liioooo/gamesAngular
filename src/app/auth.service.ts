@@ -56,6 +56,7 @@ export class AuthService {
         sessionStorage.removeItem('authenticated');
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('authenticated');
+        sessionStorage.removeItem('picturePath');
         this.router.navigate(['dashboard']);
     }
 
@@ -69,6 +70,14 @@ export class AuthService {
 
     getUserID(): number {
         return Number(sessionStorage.getItem('userID'));
+    }
+
+    getProfilePicturePath(): string {
+        return sessionStorage.getItem('picturePath');
+    }
+
+    updateProfilePicturePath() {
+        sessionStorage.setItem('picturePath', sessionStorage.getItem('picturePath') + '?time=' + Date.now());
     }
 
 
@@ -115,8 +124,12 @@ export class AuthService {
                 'action': 'changePicture',
                 'file': file
             }).subscribe(data => {
-                if(data['error'] == '0') {
-                    sessionStorage.setItem('picturePath', data['picture']);
+                if(data['auth'] == 1) {
+                    if(data['error'] == '0') {
+                        sessionStorage.setItem('picturePath', data['picture']);
+                    }
+                } else {
+                    this.setUserLoggedOut();
                 }
                 resolve(data['error']);
             })

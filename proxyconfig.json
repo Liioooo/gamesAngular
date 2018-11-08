@@ -3,5 +3,10 @@
     "target": "http://localhost:80/angularGames",
     "secure": false,
     "changeOrigin": true
+  },
+  "/profilePictures": {
+    "target": "http://localhost:80/angularGames",
+    "secure": false,
+    "changeOrigin": true
   }
 }
