@@ -117,14 +117,34 @@ export class ManageAccountComponent implements OnInit {
           return;
       }
 
-      this.auth.changePicture(this.file).then(result => {
-          if(result == '0') {
-              this.changePictureSubmitted = false;
-              this.auth.updateProfilePicturePath();
-          } else {
-              this.changePictureForm.controls.fileInput.setErrors({invalidFile: true})
-          }
+      this.resize(this.file, 400, 400).then(fileToUpload => {
+          this.auth.changePicture(fileToUpload).then(result => {
+              if(result == '0') {
+                  this.changePictureSubmitted = false;
+                  this.auth.updateProfilePicturePath();
+              } else {
+                  this.changePictureForm.controls.fileInput.setErrors({invalidFile: true})
+              }
+          });
       });
   }
+
+    resize(base64, maxWidth, maxHeight): Promise<string> {
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+
+        let img = new Image();
+        img.src = base64;
+
+        canvas.width = maxWidth;
+        canvas.height = maxHeight;
+
+        return new Promise<string>(resolve => {
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, maxWidth, maxHeight);
+                resolve(canvas.toDataURL());
+            };
+        });
+    }
 
 }
