@@ -185,6 +185,7 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy {
                     case 1:
                         p.gameResult = 'Du hast gewonnen!';
                         p.gameState = 2;
+                        break;
                     case -1:
                         p.gameResult = 'Du hast verloren!';
                         p.gameState = 2;

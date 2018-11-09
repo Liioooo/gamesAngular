@@ -12,6 +12,7 @@ import {FlappyBirdComponent} from './flappy-bird/flappy-bird.component';
 import {Connect4Component} from './connect4/connect4.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HighscoresComponent} from './highscores/highscores.component';
+import {UserDetailComponent} from './user-detail/user-detail.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: 'flappy-bird', component: FlappyBirdComponent },
     { path: '4-gewinnt', component: Connect4Component },
     { path: 'highscores', component: HighscoresComponent },
+    { path: 'users/:username', component: UserDetailComponent },
     { path: '**', component: PageNotFoundComponent}
 ];
 

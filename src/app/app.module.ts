@@ -20,6 +20,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HighscoresComponent } from './highscores/highscores.component';
 import { ScoreListComponent } from './score-list/score-list.component';
 import { ReactiveFormsModule} from '@angular/forms';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     HighscoresComponent,
     ScoreListComponent,
       RegisterFormComponent,
+      UserDetailComponent,
   ],
   imports: [
     BrowserModule,

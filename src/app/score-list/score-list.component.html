@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of userlist">
-        <td>{{user.username}}</td>
+        <td><a class="text-dark" routerLink="/users/{{user.username}}">{{user.username}}</a></td>
         <td>{{user.score}}</td>
       </tr>
     </tbody>
