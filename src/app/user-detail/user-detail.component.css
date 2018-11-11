@@ -1,0 +1,19 @@
+.profilePicture {
+    height: 250px;
+    width: 250px;
+}
+
+.usernameDes {
+    width: calc(100% - 250px);
+}
+
+@media screen and (max-width: 768px){
+    .usernameDes {
+        width: 100%;
+    }
+
+    .profilePicture {
+        position: relative;
+        left: calc(50% - 125px);
+    }
+}

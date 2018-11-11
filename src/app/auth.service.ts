@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 export interface UsernameAvailableInterface {
     available: string
+}
+
+export interface UserInfoReturn {
+    highscores: {
+        [index: number]: {
+            gameName: string,
+            score: number
+        }
+    },
+    profilePicture: string,
+    description: string
 }
 
 @Injectable({
@@ -140,6 +152,12 @@ export class AuthService {
         return this.http.post<UsernameAvailableInterface>('/api/isUserAvailable.php', {
             username: username
         });
+    }
+
+    getUserInfo(username: string): Observable<UserInfoReturn> {
+        return this.http.post<UserInfoReturn>('/api/getUserInfo.php', {
+            'username': username
+        })
     }
 
 }

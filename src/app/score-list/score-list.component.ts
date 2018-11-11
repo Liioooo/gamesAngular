@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GetHighscoresReturn, ScoreService} from '../score.service';
+import {GetHighscoresGameReturn, ScoreService} from '../score.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,12 +11,12 @@ export class ScoreListComponent implements OnInit {
 
   @Input() gameID: number;
 
-  userlist: GetHighscoresReturn;
+  userlist: GetHighscoresGameReturn;
 
   constructor(private score: ScoreService, private router: Router) { }
 
   ngOnInit() {
-    this.score.getHighscores(this.gameID)
+    this.score.getHighscoresGame(this.gameID)
         .subscribe(data => {
             this.userlist = data;
         });

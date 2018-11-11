@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService, UserInfoReturn} from '../auth.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -9,12 +10,22 @@ import {ActivatedRoute} from '@angular/router';
 export class UserDetailComponent implements OnInit {
 
   username: string;
+  userInfo: UserInfoReturn;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
       this.route.params.subscribe(params => {
           this.username = params['username'];
+          this.auth.isUsernameAvailable(this.username).subscribe(userAva => {
+              if(userAva['available'] == '0') {
+                  this.auth.getUserInfo(this.username).subscribe(data => {
+                      this.userInfo = data;
+                  }) ;
+              } else {
+                  this.router.navigate(['noSuchUser']);
+              }
+          });
       });
   }
 

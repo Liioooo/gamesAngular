@@ -13,7 +13,7 @@ interface GetHighscoreReturn {
     allHighscore: string
 }
 
-export interface GetHighscoresReturn {
+export interface GetHighscoresGameReturn {
     [index: number]: {
         username: string,
         score: number
@@ -41,8 +41,8 @@ export class ScoreService {
       });
     }
 
-    getHighscores(gameID: number): Observable<GetHighscoresReturn> {
-        return this.http.post<GetHighscoresReturn>('/api/getHighscores.php', {
+    getHighscoresGame(gameID: number): Observable<GetHighscoresGameReturn> {
+        return this.http.post<GetHighscoresGameReturn>('/api/getHighscoresGame.php', {
             'gameID': gameID
         });
     }
