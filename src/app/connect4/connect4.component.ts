@@ -5,6 +5,7 @@ import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
 import {Connect4Helper} from './Connect4Helper';
+import {NavbarCollapsedService} from '../navbar-collapsed.service';
 
 @Component({
   selector: 'app-connect4',
@@ -18,7 +19,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
 
     private gameID = 3;
 
-    constructor(private scoreService: ScoreService, public auth: AuthService) {
+    constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
         window.onresize = this.onWindowResize;
     }
 
@@ -68,7 +69,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
     startGame() {
         this.p5.gameState = 1;
         this.p5.score = 0;
-        this.p5.allHighscore = 'Laden...';
+        this.p5.allHighscore = 'Loading...';
         this.p5.currentPlayer =  Math.random() < 0.5 ? 1 : -1;
         this.p5.playsInCurrentGame = 0;
         this.p5.initGrid();
@@ -101,8 +102,8 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                 p.currentPlayer = 0;
                 p.playsInCurrentGame = 0;
 
-                p.allHighscore = 'Laden...';
-                p.userHighscore = 'Laden...';
+                p.allHighscore = 'Loading...';
+                p.userHighscore = 'Loading...';
                 p.gameResult = '';
 
                 p.grid = [];
@@ -138,18 +139,18 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                         if(p.playsInCurrentGame === 42) {
                             p.score = 43;
                             p.endGame();
-                            p.gameResult = 'Unentschieden';
+                            p.gameResult = 'Draw';
                         }
                         break;
                     case 1:
                         p.score = 43 + (42-p.playsInCurrentGame);
                         p.endGame();
-                        p.gameResult = 'Du hast gewonnen!';
+                        p.gameResult = 'You won!';
                         break;
                     case -1:
                         p.score = p.playsInCurrentGame;
                         p.endGame();
-                        p.gameResult = 'Du hast verloren!';
+                        p.gameResult = 'You lost!';
                         break;
                 }
             };

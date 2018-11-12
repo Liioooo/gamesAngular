@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {FileValidator, PasswordValidator, UsernameValidator} from '../FormValidators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {DeleteUserModalComponent} from '../delete-user-modal/delete-user-modal.component';
 
 @Component({
   selector: 'app-manage-account',
@@ -25,7 +27,7 @@ export class ManageAccountComponent implements OnInit {
 
   private file: any;
 
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -63,6 +65,15 @@ export class ManageAccountComponent implements OnInit {
   handleLogoutClick() {
     this.auth.logout();
   }
+
+  openDeleteAccountModal() {
+      const modal = this.modalService.open(DeleteUserModalComponent);
+      modal.componentInstance.accountToDelete = this.auth.getUsername();
+      modal.result.then(result => {
+          //TODO: delete user account
+      }).catch(error => {});
+}
+
 
   handleChangeUsernameClick() {
       this.changeUsernameSubmitted = true;

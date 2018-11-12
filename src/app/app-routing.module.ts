@@ -22,7 +22,7 @@ const routes: Routes = [
     { path: 'falling-blocks', component: FallingBlocksComponent },
     { path: 'tictactoe', component: TictactoeComponent },
     { path: 'flappy-bird', component: FlappyBirdComponent },
-    { path: '4-gewinnt', component: Connect4Component },
+    { path: 'connect-4', component: Connect4Component },
     { path: 'highscores', component: HighscoresComponent },
     { path: 'users/:username', component: UserDetailComponent },
     { path: '**', component: PageNotFoundComponent}

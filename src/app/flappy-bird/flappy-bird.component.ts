@@ -70,7 +70,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
         this.p5.gameState = 1;
         this.p5.initPipes();
         this.p5.score = 0;
-        this.p5.allHighscore = 'Laden...';
+        this.p5.allHighscore = 'Loading...';
         this.p5.player.setMiddle();
     }
 
@@ -99,8 +99,8 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
                 p.gameState = 0; // 0>noGame 1>running 2>finished
                 p.score = 0;
 
-                p.allHighscore = 'Laden...';
-                p.userHighscore = 'Laden...';
+                p.allHighscore = 'Loading...';
+                p.userHighscore = 'Loading...';
 
                 p.pipes = [];
                 p.player = new Player(p, 200, 650/2, p.unitsOnScreen);

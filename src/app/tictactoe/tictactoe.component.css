@@ -1,17 +1,50 @@
-.startButton {
+.startButtonCol {
     position: absolute;
-    left: 140px;
+    left: 200px;
     top: 30%;
-    z-index: 1060;
-    width: 400px;
+    width: 380px;
     height: 140px;
     font-size: 32pt;
 }
 
-.infoText {
+.infoTextCol {
     position: absolute;
     top: 50%;
-    left: 140px;
-    z-index: 1060;
-    width: 400px;
+    left: 150px;
+    width: 480px;
+}
+
+@media screen and (max-width: 768px){
+    .startButtonCol {
+        position: absolute;
+        left: 27.5%;
+        top: 22%;
+        width: 45%;
+        height: 12%;
+        font-size: 32pt;
+    }
+
+    .infoTextCol {
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        width: 60%;
+    }
+
+    .startButtonOpen {
+        position: absolute;
+        left: 27.5%;
+        top: 45%;
+        width: 45%;
+        height: 12%;
+        font-size: 32pt;
+    }
+
+    .infoTextOpen {
+        position: absolute;
+        top: 63%;
+        left: 20%;
+        width: 60%;
+    }
+
 }

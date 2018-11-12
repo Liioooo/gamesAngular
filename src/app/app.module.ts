@@ -21,33 +21,36 @@ import { HighscoresComponent } from './highscores/highscores.component';
 import { ScoreListComponent } from './score-list/score-list.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { DeleteUserModalComponent } from './delete-user-modal/delete-user-modal.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavComponent,
-    DashboardComponent,
-    LoginComponent,
-    LoginFormComponent,
-    ManageAccountComponent,
-    FallingBlocksComponent,
-    TictactoeComponent,
-    FlappyBirdComponent,
-    Connect4Component,
-    PageNotFoundComponent,
-    HighscoresComponent,
-    ScoreListComponent,
+      AppComponent,
+      NavComponent,
+      DashboardComponent,
+      LoginComponent,
+      LoginFormComponent,
+      ManageAccountComponent,
+      FallingBlocksComponent,
+      TictactoeComponent,
+      FlappyBirdComponent,
+      Connect4Component,
+      PageNotFoundComponent,
+      HighscoresComponent,
+      ScoreListComponent,
       RegisterFormComponent,
       UserDetailComponent,
-  ],
-  imports: [
-    BrowserModule,
+      DeleteUserModalComponent
+    ],
+    imports: [
+      BrowserModule,
       ReactiveFormsModule,
       NgbModule.forRoot(),
       AppRoutingModule,
       HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    entryComponents: [DeleteUserModalComponent]
 })
 export class AppModule { }

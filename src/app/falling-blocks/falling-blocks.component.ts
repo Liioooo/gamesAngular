@@ -5,6 +5,7 @@ import {Block} from './Block';
 import {ScoreService} from '../score.service';
 import {AuthService} from '../auth.service';
 import {P5JsHelpers} from '../P5JsHelpers';
+import {NavbarCollapsedService} from '../navbar-collapsed.service';
 
 @Component({
   selector: 'app-falling-blocks',
@@ -18,7 +19,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
 
   private gameID: number = 0;
 
-  constructor(private scoreService: ScoreService, public auth: AuthService) {
+  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
       window.onresize = this.onWindowResize;
       document.onvisibilitychange = this.onVisibilityChange;
   }
@@ -86,7 +87,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
       this.p5.initBlocks();
       this.p5.gameState = 1;
       this.p5.score = 0;
-      this.p5.allHighscore = 'Laden...';
+      this.p5.allHighscore = 'Loading...';
       this.p5.player.setMiddle();
       this.p5.scoreCounterIntervall = setInterval(() => {
           this.p5.score++;
@@ -108,8 +109,8 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
             p.frameRate(60);
             P5JsHelpers.initFrameRateAvg();
 
-            p.allHighscore = 'Laden...';
-            p.userHighscore = 'Laden...';
+            p.allHighscore = 'Loading...';
+            p.userHighscore = 'Loading...';
 
             p.numberOfBlocks = 6;
             p.blocks = [];

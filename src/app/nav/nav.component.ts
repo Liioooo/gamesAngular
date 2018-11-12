@@ -11,13 +11,11 @@ import {NavbarCollapsedService} from '../navbar-collapsed.service';
 })
 export class NavComponent implements OnInit {
 
-  public isCollapsed: boolean = true;
-
   constructor(public location: Location, public auth: AuthService, private router: Router, public collapsed: NavbarCollapsedService) {}
 
   ngOnInit() {
     this.router.events.subscribe(event => {
-      this.isCollapsed = true;
+      this.collapsed.isCollapsed = true;
     });
   }
 

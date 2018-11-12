@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {NeuralNet} from './NeuralNet';
+import {AuthService} from '../auth.service';
+import {NavbarCollapsedService} from '../navbar-collapsed.service';
 
 @Component({
   selector: 'app-tictactoe',
@@ -13,7 +15,7 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy {
 
     private gameID: number = 2;
 
-    constructor() {
+    constructor(public collapsed: NavbarCollapsedService) {
         window.onresize = this.onWindowResize;
     }
 
@@ -40,7 +42,7 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy {
     };
 
     private getSizeForCanavs(): number {
-      return window.innerHeight < window.innerWidth ? window.innerHeight - 230 : window.innerWidth - 230;
+      return window.innerHeight < window.innerWidth ? window.innerHeight - 230 : window.innerWidth - 90;
     }
 
     public gameNotRunning(): boolean {
@@ -178,16 +180,16 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy {
                     case 0:
                         p.currentPlayer *= -1;
                         if(p.playsInCurrentGame === 9) {
-                            p.gameResult = 'Unentschieden';
+                            p.gameResult = 'Draw';
                             p.gameState = 2;
                         }
                         break;
                     case 1:
-                        p.gameResult = 'Du hast gewonnen!';
+                        p.gameResult = 'You won!';
                         p.gameState = 2;
                         break;
                     case -1:
-                        p.gameResult = 'Du hast verloren!';
+                        p.gameResult = 'You lost!';
                         p.gameState = 2;
                         break;
                 }

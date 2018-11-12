@@ -1,28 +1,28 @@
 <div class="p-3 border-right border-left border-bottom rounded-bottom">
   <form [formGroup]="loginForm" (ngSubmit)="handleSubmitClick()">
     <div class="form-group">
-      <label for="username">Benutzername:</label>
-      <input type="text" class="form-control" [class.is-invalid]="submitted && form.username.errors" placeholder="Benutzernamen eingeben" id="username" name="username" formControlName="username">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" [class.is-invalid]="submitted && form.username.errors" placeholder="Usernamen eingeben" id="username" name="username" formControlName="username">
       <div class="invalid-feedback d-block" *ngIf="submitted && form.username.errors">
-        <span *ngIf="form.username.errors.required">Bitte einen Benutzernamen eingeben!</span>
-        <span *ngIf="form.username.errors.minlength">Der Benutzrname muss mindestens 3 Zeichen lang sein.</span>
-        <span *ngIf="form.username.errors.isNotAvailable">Der Benutzrname ist nicht verfügbar!</span>
+        <span *ngIf="form.username.errors.required">Please type in a Username!</span>
+        <span *ngIf="form.username.errors.minlength">Username must contain at least 3 characters!</span>
+        <span *ngIf="form.username.errors.isNotAvailable">This Username is already in use, choose another one!</span>
       </div>
     </div>
     <div class="form-group">
-      <label for="password">Passwort:</label>
-      <input type="password" class="form-control" [class.is-invalid]="submitted && form.password.errors" placeholder="Passwort eingeben" id="password" name="password" formControlName="password">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" [class.is-invalid]="submitted && form.password.errors" placeholder="Type in password" id="password" name="password" formControlName="password">
       <div class="invalid-feedback d-block" *ngIf="submitted && form.password.errors">
-        <span *ngIf="form.password.errors.required">Bitte ein Passwort eingeben!</span>
+        <span *ngIf="form.password.errors.required">Please type in a Password!</span>
       </div>
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" [class.is-invalid]="submitted && form.password1.errors" placeholder="Passwort wiederholen" id="password1" name="password1" formControlName="password1">
+      <input type="password" class="form-control" [class.is-invalid]="submitted && form.password1.errors" placeholder="Type in new password again" id="password1" name="password1" formControlName="password1">
       <div class="invalid-feedback d-block" *ngIf="submitted && form.password1.errors">
-        <span *ngIf="form.password1.errors.required">Bitte das Passwort erneut eingeben!</span>
-        <span *ngIf="form.password1.errors.matchPassword">Die Passwörter sind nicht gleich!</span>
+        <span *ngIf="form.password1.errors.required">Please type your Password again!</span>
+        <span *ngIf="form.password1.errors.matchPassword">Passwords do not match!</span>
       </div>
     </div>
-    <button class="btn btn-primary">Registrieren</button>
+    <button class="btn btn-primary">Register</button>
   </form>
 </div>
