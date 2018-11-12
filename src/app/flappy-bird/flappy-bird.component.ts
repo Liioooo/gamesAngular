@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {ScoreService} from '../score.service';
 import {AuthService} from '../auth.service';
 import {Player} from './Player';
 import {Pipe} from './Pipe';
 import {P5JsHelpers} from '../P5JsHelpers';
+import {NavbarCollapsedService} from '../navbar-collapsed.service';
 
 @Component({
   selector: 'app-flappy-bird',
@@ -18,7 +19,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
 
   private gameID = 1;
 
-  constructor(private scoreService: ScoreService, public auth: AuthService) {
+  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
       window.onresize = this.onWindowResize;
   }
 

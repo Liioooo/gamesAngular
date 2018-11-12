@@ -1,8 +1,8 @@
 <div class="p-3 m-3  border rounded">
   <h2>Flappy Bird</h2>
   <div id="flappy-bird-canvas" #flappyBirdCanvas></div>
-  <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success startButton">Starten</button>
-  <div *ngIf="gameNotRunning() || gameEnded()" class="infoText bg-info p-3 text-center rounded">
+  <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success" [ngClass]="{'startButtonCol' : collapsed.isCollapsed, 'startButtonOpen' : !collapsed.isCollapsed}">Starten</button>
+  <div *ngIf="gameNotRunning() || gameEnded()" class="bg-info p-3 text-center rounded" [ngClass]="{'infoTextCol' : collapsed.isCollapsed, 'infoTextOpen' : !collapsed.isCollapsed}">
     <h5>Steuere den Spieler mit W oder mit Mausclicks.</h5>
   </div>
   <h3 *ngIf="!gameNotRunning()">Score: {{p5.score}}</h3>
