@@ -174,6 +174,27 @@ export class AuthService {
     getUserInfo(username: string): Observable<UserInfoReturn> {
         return this.http.post<UserInfoReturn>('/api/getUserInfo.php', {
             'username': username
+        });
+    }
+
+    getUserDescription() {
+        return this.http.post('/api/getUserDescription.php', {
+            'userID':  sessionStorage.getItem('userID')
+        });
+    }
+
+    updateUserDescription(description: string): Promise<string> {
+        return new Promise(resolve => {
+            this.http.post('/api/editUser.php', {
+                'userID': sessionStorage.getItem('userID'),
+                'action': 'changeDescription',
+                'description': description
+            }).subscribe(data => {
+                if (data['auth'] == 0) {
+                    this.setUserLoggedOut();
+                }
+                resolve('success');
+            });
         })
     }
 

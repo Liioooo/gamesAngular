@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {FileValidator, PasswordValidator, UsernameValidator} from '../FormValidators';
 
 @Component({
@@ -13,6 +13,7 @@ export class ManageAccountComponent implements OnInit {
   public changePasswordForm: FormGroup;
   public changeUsernameForm: FormGroup;
   public changePictureForm: FormGroup;
+  public changeDescriptionForm: FormGroup;
 
   public changePasswordSubmitted = false;
   public changeUsernameSubmitted = false;
@@ -20,10 +21,12 @@ export class ManageAccountComponent implements OnInit {
 
   public changePasswordSuccess = false;
   public changeUsernameSuccess = false;
+  public changeDescriptionSuccess = false;
 
   private file: any;
 
-  constructor(public auth: AuthService, private formBuilder: FormBuilder) {}
+  constructor(public auth: AuthService) {
+  }
 
   ngOnInit() {
       this.changeUsernameForm = new FormGroup({
@@ -38,6 +41,14 @@ export class ManageAccountComponent implements OnInit {
       });
       this.changePictureForm = new FormGroup({
           fileInput: new FormControl('', [Validators.required, FileValidator.fileValid])
+      });
+
+      this.changeDescriptionForm = new FormGroup({
+          description: new FormControl('')
+      });
+
+      this.auth.getUserDescription().subscribe(data => {
+          this.changeDescriptionForm.controls.description.setValue(data['description']);
       });
   }
 
@@ -131,6 +142,13 @@ export class ManageAccountComponent implements OnInit {
 
     removePicture() {
         this.auth.removePicture();
+    }
+
+    handleChangeDescriptionClick() {
+      this.auth.updateUserDescription(this.changeDescriptionForm.controls.description.value)
+          .then(result => {
+              this.changeDescriptionSuccess = true;
+          });
     }
 
     resize(base64, maxWidth, maxHeight): Promise<string> {

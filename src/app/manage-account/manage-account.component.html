@@ -5,7 +5,7 @@
       <form [formGroup]="changeUsernameForm" (submit)="handleChangeUsernameClick()">
         <div class="form-group">
           <label for="newUsername">Benutzernamen ändern:</label>
-          <input type="text" class="form-control" [class.is-invalid]="changeUsernameSubmitted && usernameForm.newUsername.errors" id="newUsername" placeholder="Neuen Benutzernamen" name="newUsername" formControlName="newUsername">
+          <input type="text" value="{{auth.getUsername()}}" class="form-control" [class.is-invalid]="changeUsernameSubmitted && usernameForm.newUsername.errors" id="newUsername" placeholder="Neuen Benutzernamen" name="newUsername" formControlName="newUsername">
           <div class="invalid-feedback d-block" *ngIf="changeUsernameSubmitted && usernameForm.newUsername.errors">
             <span *ngIf="usernameForm.newUsername.errors.required">Bitte einen Benutzernamen eingeben!</span>
             <span *ngIf="usernameForm.newUsername.errors.minlength">Der Benutzrname muss mindestens 3 Zeichen lang sein.</span>
@@ -14,6 +14,14 @@
           <span class="valid-feedback d-block" *ngIf="changeUsernameSuccess">Benutzernamen erfolgreich geändert!</span>
         </div>
         <button class="btn btn-primary">Benutzernamen ändern</button>
+      </form>
+      <form class="mt-4" [formGroup]="changeDescriptionForm" (submit)="handleChangeDescriptionClick()">
+        <div class="form-group">
+          <label for="description">Beschreibung ändern:</label>
+          <textarea class="form-control" rows="2" id="description" formControlName="description"></textarea>
+          <span class="valid-feedback d-block" *ngIf="changeDescriptionSuccess">Beschreibung erfolgreich geändert!</span>
+        </div>
+        <button class="btn btn-primary">Beschreibung ändern</button>
       </form>
       <form class="mt-4" [formGroup]="changePasswordForm" (submit)="handleChangePasswordClick()">
         <h5>Passwort ändern:</h5>
@@ -46,7 +54,7 @@
     <div class="col-md-6 col-lg-5 col-xl-4 mt-3 mt-md-0">
       <p>Profilbild ändern:</p>
       <img [src]="auth.getProfilePicturePath()" class="rounded-circle" style="height: 320px; width: 320px;">
-      <form [formGroup]="changePictureForm" (submit)="handleChangePictureClick()" class="col pt-3 pl-md-5">
+      <form [formGroup]="changePictureForm" (submit)="handleChangePictureClick()" class="col pt-3 pl-md-4 pr-0">
         <label class="w-100">
           <input formControlName="fileInput" (change)="onFileChange($event)" accept="image/*" name="fileInput" id="fileInput" class="custom-file-input d-none" type="file"/>
           <span class="btn btn-primary">Datei wählen</span>
