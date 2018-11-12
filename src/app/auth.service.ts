@@ -144,8 +144,25 @@ export class AuthService {
                     this.setUserLoggedOut();
                 }
                 resolve(data['error']);
-            })
+            });
         });
+    }
+
+    removePicture() {
+        if(this.getProfilePicturePath() !== '/pictures/default-profile-img.svg') {
+            this.http.post('/api/deleteProfilePicture.php', {
+                'userID': sessionStorage.getItem('userID')
+            }).subscribe(data => {
+                if(data['auth'] == 1) {
+                    if(data['error'] == '0') {
+                        sessionStorage.setItem('picturePath', data['picture']);
+                        this.updateProfilePicturePath();
+                    }
+                } else {
+                    this.setUserLoggedOut();
+                }
+            });
+        }
     }
 
     isUsernameAvailable(username: string) {

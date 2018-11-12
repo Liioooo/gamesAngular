@@ -129,6 +129,10 @@ export class ManageAccountComponent implements OnInit {
       });
   }
 
+    removePicture() {
+        this.auth.removePicture();
+    }
+
     resize(base64, maxWidth, maxHeight): Promise<string> {
         let canvas = document.createElement("canvas");
         let ctx = canvas.getContext("2d");

@@ -52,7 +52,8 @@
           <span class="btn btn-primary">Datei wählen</span>
           <label for="fileInput" class="ml-2">{{filePath}}</label>
         </label>
-        <button class="btn btn-primary">Profilbild ändern</button>
+        <button type="submit" class="btn btn-primary">Profilbild ändern</button>
+        <button type="button" (click)="removePicture()" class="btn btn-primary ml-2">Profilbild entfernen</button>
         <div class="invalid-feedback d-block" *ngIf="changePictureSubmitted && pictureForm.fileInput.errors">
           <span *ngIf="pictureForm.fileInput.errors.required">Bitte eine Datei wählen!</span>
           <span *ngIf="!pictureForm.fileInput.errors.required && pictureForm.fileInput.errors.invaldFile">Ungültige Datei!</span>
