@@ -1,5 +1,5 @@
 import { FormControl, ValidationErrors} from '@angular/forms';
-import {AuthService} from './auth.service';
+import {AuthService} from '../services/auth.service';
 import {Observable, Observer, of} from 'rxjs';
 
 export class PasswordValidator {
@@ -36,7 +36,7 @@ export class UsernameValidator {
     }
 
      usernameAvailable(c: FormControl): Observable<ValidationErrors | null> {
-        return Observable.create((observer: Observer<any>) => {
+        return Observable.create((observer: Observer<ValidationErrors>) => {
             UsernameValidator.authService.isUsernameAvailable(c.value).subscribe(data => {
                 if (data.available == '1') {
                     observer.next(null);

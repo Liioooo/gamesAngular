@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService, UserInfoReturn} from '../auth.service';
+import {AuthService} from '../../services/auth.service';
 import {Observable} from 'rxjs';
+import {UserInfo} from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-user-detail',
@@ -11,7 +12,7 @@ import {Observable} from 'rxjs';
 export class UserDetailComponent implements OnInit {
 
   username: string;
-  userInfo: Observable<UserInfoReturn>;
+  userInfo: Observable<UserInfo>;
 
   constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router) {}
 

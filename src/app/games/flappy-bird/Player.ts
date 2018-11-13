@@ -1,4 +1,4 @@
-import {P5JsHelpers} from '../P5JsHelpers';
+import {P5JsHelpers} from '../../helpers/P5JsHelpers';
 import {Pipe} from './Pipe';
 
 export class Player {

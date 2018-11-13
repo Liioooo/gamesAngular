@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {NeuralNet} from './NeuralNet';
-import {AuthService} from '../auth.service';
-import {NavbarCollapsedService} from '../navbar-collapsed.service';
+import {AuthService} from '../../services/auth.service';
+import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 
 @Component({
   selector: 'app-tictactoe',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../../services/auth.service';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import {FileValidator, PasswordValidator, UsernameValidator} from '../FormValidators';
+import {FileValidator, PasswordValidator, UsernameValidator} from '../../helpers/FormValidators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeleteUserModalComponent} from '../delete-user-modal/delete-user-modal.component';
 

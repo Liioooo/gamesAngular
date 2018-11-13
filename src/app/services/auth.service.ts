@@ -2,21 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-
-export interface UsernameAvailableInterface {
-    available: string
-}
-
-export interface UserInfoReturn {
-    highscores: {
-        [index: number]: {
-            gameName: string,
-            score: number
-        }
-    },
-    profilePicture: string,
-    description: string
-}
+import {UserInfo, UserLoginInfo, UsernameAvailable} from '../interfaces/interfaces';
+import {filter, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,53 +14,52 @@ export class AuthService {
 
     login(username: string, password: string): Promise<string> {
         return new Promise<string>((resolve) => {
-            this.http.post('/api/login.php', {username, password})
-                .subscribe(data => {
-                    if (data['auth'] == 1) {
-                        sessionStorage.setItem('authenticated', 'true');
-                        sessionStorage.setItem('username', data['username']);
-                        sessionStorage.setItem('userID', data['userID']);
-                        sessionStorage.setItem('picturePath', data['picture']);
-                        this.router.navigate(['dashboard']);
+            this.http.post<UserLoginInfo>('/api/login.php', {username, password}).pipe(
+                tap(data => resolve(data.error)),
+                filter(data => data.auth === 'true')
+            ).subscribe(data => {
+                Object.keys(data).forEach(key => {
+                    if(key !== 'error') {
+                        sessionStorage.setItem(key, data[key]);
                     }
-                    resolve(data['error']);
                 });
+                this.router.navigate(['dashboard']);
+            });
         });
     }
 
     register(username: string, password: string): Promise<string> {
         return new Promise<string>((resolve) => {
-            this.http.post('/api/register.php', {username, password})
-                .subscribe(data => {
-                    if(data['auth'] == 1) {
-                        sessionStorage.setItem('authenticated', 'true');
-                        sessionStorage.setItem('username', data['username']);
-                        sessionStorage.setItem('userID',  data['userID']);
-                        sessionStorage.setItem('picturePath', data['picture']);
-                        this.router.navigate(['dashboard']);
+            this.http.post<UserLoginInfo>('/api/register.php', {username, password}).pipe(
+                tap(data => resolve(data.error)),
+                filter(data => data.auth === 'true')
+            ).subscribe(data => {
+                console.log(data);
+                Object.keys(data).forEach(key => {
+                    if(key !== 'error') {
+                        sessionStorage.setItem(key, data[key]);
                     }
-                    resolve(data['error']);
                 });
+                this.router.navigate(['dashboard']);
+            });
         });
     }
 
     logout() {
-        this.http.get('/api/logout.php')
-            .subscribe(data => {
-                this.setUserLoggedOut();
-            });
+        this.http.get('/api/logout.php').subscribe(data => this.setUserLoggedOut());
     }
 
     private setUserLoggedOut() {
-        sessionStorage.removeItem('authenticated');
+        sessionStorage.removeItem('auth');
         sessionStorage.removeItem('username');
-        sessionStorage.removeItem('authenticated');
+        sessionStorage.removeItem('auth');
+        sessionStorage.removeItem('userID');
         sessionStorage.removeItem('picturePath');
         this.router.navigate(['dashboard']);
     }
 
     isAuthenticated(): boolean {
-        return sessionStorage.getItem('authenticated') === 'true';
+        return sessionStorage.getItem('auth') === 'true';
     }
 
     getUsername(): string {
@@ -100,7 +86,7 @@ export class AuthService {
                 'userID': sessionStorage.getItem('userID'),
                 'action': 'changeUsername'
             }).subscribe(data => {
-                if(data['auth'] == 1) {
+                if(data['auth'] === 'true') {
                     if(data['error'] !== 'alreadyExists') {
                         sessionStorage.setItem('username', data['username']);
                     }
@@ -120,7 +106,7 @@ export class AuthService {
                 'userID': sessionStorage.getItem('userID'),
                 'action': 'changePassword'
             }).subscribe(data => {
-                if(data['auth'] == 1) {
+                if(data['auth'] === 'true') {
                     resolve(data['error']);
                 } else {
                     this.setUserLoggedOut();
@@ -136,7 +122,7 @@ export class AuthService {
                 'action': 'changePicture',
                 'file': file
             }).subscribe(data => {
-                if(data['auth'] == 1) {
+                if(data['auth'] == 'true') {
                     if(data['error'] == '0') {
                         sessionStorage.setItem('picturePath', data['picture']);
                     }
@@ -153,7 +139,7 @@ export class AuthService {
             this.http.post('/api/deleteProfilePicture.php', {
                 'userID': sessionStorage.getItem('userID')
             }).subscribe(data => {
-                if(data['auth'] == 1) {
+                if(data['auth'] == 'true') {
                     if(data['error'] == '0') {
                         sessionStorage.setItem('picturePath', data['picture']);
                         this.updateProfilePicturePath();
@@ -166,13 +152,13 @@ export class AuthService {
     }
 
     isUsernameAvailable(username: string) {
-        return this.http.post<UsernameAvailableInterface>('/api/isUserAvailable.php', {
+        return this.http.post<UsernameAvailable>('/api/isUserAvailable.php', {
             username: username
         });
     }
 
-    getUserInfo(username: string): Observable<UserInfoReturn> {
-        return this.http.post<UserInfoReturn>('/api/getUserInfo.php', {
+    getUserInfo(username: string): Observable<UserInfo> {
+        return this.http.post<UserInfo>('/api/getUserInfo.php', {
             'username': username
         });
     }
@@ -189,12 +175,10 @@ export class AuthService {
                 'userID': sessionStorage.getItem('userID'),
                 'action': 'changeDescription',
                 'description': description
-            }).subscribe(data => {
-                if (data['auth'] == 0) {
-                    this.setUserLoggedOut();
-                }
-                resolve('success');
-            });
+            }).pipe(
+                tap(data => resolve('success')),
+                filter(data => data['auth'] == false)
+            ).subscribe(data => this.setUserLoggedOut());
         })
     }
 

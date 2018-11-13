@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
-import {ScoreService} from '../score.service';
-import {AuthService} from '../auth.service';
 import {Player} from './Player';
 import {Pipe} from './Pipe';
-import {P5JsHelpers} from '../P5JsHelpers';
-import {NavbarCollapsedService} from '../navbar-collapsed.service';
+import {ScoreService} from '../../services/score.service';
+import {AuthService} from '../../services/auth.service';
+import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
+import {P5JsHelpers} from '../../helpers/P5JsHelpers';
 
 @Component({
   selector: 'app-flappy-bird',

@@ -8,20 +8,20 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { RegisterFormComponent} from './register-form/register-form.component';
-import { ManageAccountComponent } from './manage-account/manage-account.component';
-import { FallingBlocksComponent } from './falling-blocks/falling-blocks.component';
-import { TictactoeComponent } from './tictactoe/tictactoe.component';
-import { FlappyBirdComponent } from './flappy-bird/flappy-bird.component';
-import { Connect4Component } from './connect4/connect4.component';
+import { LoginComponent } from './user/login/login.component';
+import { LoginFormComponent } from './user/login-form/login-form.component';
+import { RegisterFormComponent} from './user/register-form/register-form.component';
+import { ManageAccountComponent } from './user/manage-account/manage-account.component';
+import { FallingBlocksComponent } from './games/falling-blocks/falling-blocks.component';
+import { TictactoeComponent } from './games/tictactoe/tictactoe.component';
+import { FlappyBirdComponent } from './games/flappy-bird/flappy-bird.component';
+import { Connect4Component } from './games/connect4/connect4.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HighscoresComponent } from './highscores/highscores.component';
-import { ScoreListComponent } from './score-list/score-list.component';
+import { HighscoresComponent } from './scores/highscores/highscores.component';
+import { ScoreListComponent } from './scores/score-list/score-list.component';
 import { ReactiveFormsModule} from '@angular/forms';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { DeleteUserModalComponent } from './delete-user-modal/delete-user-modal.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { DeleteUserModalComponent } from './user/delete-user-modal/delete-user-modal.component';
 
 @NgModule({
   declarations: [

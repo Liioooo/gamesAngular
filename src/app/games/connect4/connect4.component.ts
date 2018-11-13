@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
-import {ScoreService} from '../score.service';
-import {AuthService} from '../auth.service';
+import {ScoreService} from '../../services/score.service';
+import {AuthService} from '../../services/auth.service';
 import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
 import {Connect4Helper} from './Connect4Helper';
-import {NavbarCollapsedService} from '../navbar-collapsed.service';
+import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 
 @Component({
   selector: 'app-connect4',

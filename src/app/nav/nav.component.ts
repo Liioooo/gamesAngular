@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
-import {NavbarCollapsedService} from '../navbar-collapsed.service';
+import {NavbarCollapsedService} from '../services/navbar-collapsed.service';
 
 @Component({
   selector: 'app-nav',

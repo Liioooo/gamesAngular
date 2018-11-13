@@ -2,10 +2,10 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, V
 import { Player } from './Player';
 import * as p5 from 'p5';
 import {Block} from './Block';
-import {ScoreService} from '../score.service';
-import {AuthService} from '../auth.service';
-import {P5JsHelpers} from '../P5JsHelpers';
-import {NavbarCollapsedService} from '../navbar-collapsed.service';
+import {ScoreService} from '../../services/score.service';
+import {AuthService} from '../../services/auth.service';
+import {P5JsHelpers} from '../../helpers/P5JsHelpers';
+import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 
 @Component({
   selector: 'app-falling-blocks',
