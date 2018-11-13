@@ -1,10 +1,10 @@
 <div class="border rounded m-3 p-3">
   <div class="row m-3">
-    <img *ngIf="userInfo !== undefined" [src]="userInfo?.profilePicture" class="profilePicture rounded-circle">
+    <img [src]="(userInfo | async)?.profilePicture" class="profilePicture rounded-circle">
     <div class="pl-0 pl-md-4 row align-items-center usernameDes">
       <div class="col">
         <h1>{{username}}</h1>
-        <p style="font-size: 1.1rem;">{{userInfo?.description}}</p>
+        <p style="font-size: 1.1rem;">{{(userInfo | async)?.description}}</p>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let score of userInfo?.highscores">
+        <tr *ngFor="let score of (userInfo | async)?.highscores">
           <td>{{score.gameName}}</td>
           <td>{{score.score}}</td>
         </tr>

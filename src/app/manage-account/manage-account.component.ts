@@ -91,7 +91,7 @@ export class ManageAccountComponent implements OnInit {
             this.changeUsernameSubmitted = false;
             this.changeUsernameForm.reset();
         } else {
-            this.changeUsernameForm.controls.newUsername.setErrors({isNotAvailable: true})
+            this.changeUsernameForm.controls.newUsername.setErrors({isNotAvailable: true});
             this.changeUsernameSuccess = false;
         }
       });
@@ -114,7 +114,7 @@ export class ManageAccountComponent implements OnInit {
               this.changePasswordForm.reset();
 
           } else {
-              this.changePasswordForm.controls.oldPassword.setErrors({invalidPW: true})
+              this.changePasswordForm.controls.oldPassword.setErrors({invalidPW: true});
               this.changePasswordSuccess = false;
           }
       });

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GetHighscoresGameReturn, ScoreService} from '../score.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-score-list',
@@ -11,15 +12,12 @@ export class ScoreListComponent implements OnInit {
 
   @Input() gameID: number;
 
-  userlist: GetHighscoresGameReturn;
+  userlist: Observable<GetHighscoresGameReturn>;
 
-  constructor(private score: ScoreService, private router: Router) { }
+  constructor(private score: ScoreService) { }
 
   ngOnInit() {
-    this.score.getHighscoresGame(this.gameID)
-        .subscribe(data => {
-            this.userlist = data;
-        });
+    this.userlist = this.score.getHighscoresGame(this.gameID);
   }
 
 }
