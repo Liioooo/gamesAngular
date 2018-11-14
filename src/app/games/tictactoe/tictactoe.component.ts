@@ -1,22 +1,27 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {NeuralNet} from './NeuralNet';
 import {AuthService} from '../../services/auth.service';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tictactoe',
   templateUrl: './tictactoe.component.html',
   styleUrls: ['./tictactoe.component.css']
 })
-export class TictactoeComponent implements AfterViewInit, OnDestroy {
+export class TictactoeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     public p5;
 
     private gameID: number = 2;
 
-    constructor(public collapsed: NavbarCollapsedService) {
+    constructor(public collapsed: NavbarCollapsedService, private title: Title) {
         window.onresize = this.onWindowResize;
+    }
+
+    ngOnInit() {
+        this.title.setTitle('LioGames - TicTacToe');
     }
 
     ngAfterViewInit() {
@@ -161,7 +166,7 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy {
                     for (let j = 0; j < p.grid[i].length; j++) {
                         switch (p.grid[i][j]) {
                             case 1:
-                                p.fill('#ffc107');
+                                p.fill('#343a40');
                                 p.text("X", (j+1) * p.width/3 - p.width/6, (i+1) * p.height/3 - p.height/6);
                                 break;
                             case -1:

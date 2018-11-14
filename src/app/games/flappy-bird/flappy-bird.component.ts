@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {Player} from './Player';
 import {Pipe} from './Pipe';
@@ -6,22 +6,27 @@ import {ScoreService} from '../../services/score.service';
 import {AuthService} from '../../services/auth.service';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {P5JsHelpers} from '../../helpers/P5JsHelpers';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-flappy-bird',
   templateUrl: './flappy-bird.component.html',
   styleUrls: ['./flappy-bird.component.css']
 })
-export class FlappyBirdComponent implements OnDestroy, AfterViewInit {
+export class FlappyBirdComponent implements OnDestroy, AfterViewInit, OnInit {
 
   @ViewChild('flappyBirdCanvas') flappyBirdCanvas: ElementRef;
   public p5;
 
   private gameID = 1;
 
-  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
+  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService, private title: Title) {
       window.onresize = this.onWindowResize;
   }
+
+    ngOnInit() {
+      this.title.setTitle('LioGames - FlappyBird');
+    }
 
     ngAfterViewInit() {
         this.createCanvas();

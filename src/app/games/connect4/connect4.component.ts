@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ScoreService} from '../../services/score.service';
 import {AuthService} from '../../services/auth.service';
 import * as p5 from 'p5';
@@ -6,21 +6,26 @@ import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
 import {Connect4Helper} from './Connect4Helper';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-connect4',
   templateUrl: './connect4.component.html',
   styleUrls: ['./connect4.component.css']
 })
-export class Connect4Component implements AfterViewInit, OnDestroy {
+export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
 
     @ViewChild('connect4Canvas') connect4Canvas: ElementRef;
     public p5;
 
     private gameID = 3;
 
-    constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
+    constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService, private title: Title) {
         window.onresize = this.onWindowResize;
+    }
+
+    ngOnInit() {
+        this.title.setTitle('LioGames - Connect 4');
     }
 
     ngAfterViewInit() {
@@ -204,7 +209,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy {
                             p.fill('#007bff');
                             p.ellipse(coords.x, coords.y, size, size);
                         } else if(p.grid[i][j] === -1) {
-                            p.fill('#ffc107');
+                            p.fill('#343a40');
                             p.ellipse(coords.x, coords.y, size, size);
                         }
                     }

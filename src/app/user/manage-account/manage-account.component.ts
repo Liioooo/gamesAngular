@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {FileValidator, PasswordValidator, UsernameValidator} from '../../helpers/FormValidators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeleteUserModalComponent} from '../delete-user-modal/delete-user-modal.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-manage-account',
@@ -27,10 +28,11 @@ export class ManageAccountComponent implements OnInit {
 
   private file: any;
 
-  constructor(public auth: AuthService, private modalService: NgbModal) {
+  constructor(public auth: AuthService, private modalService: NgbModal, private title: Title) {
   }
 
   ngOnInit() {
+      this.title.setTitle('LioGames - Manage Account');
       this.changeUsernameForm = new FormGroup({
           newUsername: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable)
       });

@@ -6,22 +6,27 @@ import {ScoreService} from '../../services/score.service';
 import {AuthService} from '../../services/auth.service';
 import {P5JsHelpers} from '../../helpers/P5JsHelpers';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-falling-blocks',
   templateUrl: './falling-blocks.component.html',
   styleUrls: ['./falling-blocks.component.css']
 })
-export class FallingBlocksComponent implements OnDestroy, AfterViewInit {
+export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit {
 
   @ViewChild("fallingBlockCanvas") fallingBlockCanvas: ElementRef;
   public p5;
 
   private gameID: number = 0;
 
-  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService) {
+  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService, private title: Title) {
       window.onresize = this.onWindowResize;
       document.onvisibilitychange = this.onVisibilityChange;
+  }
+
+  ngOnInit() {
+      this.title.setTitle('LioGames - FallingBlocks');
   }
 
   ngOnDestroy() {

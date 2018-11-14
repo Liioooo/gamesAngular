@@ -3,7 +3,7 @@
   <div id="connect4-canvas" #connect4Canvas></div>
   <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success" [ngClass]="{'startButtonCol' : collapsed.isCollapsed, 'startButtonOpen' : !collapsed.isCollapsed}">Start</button>
   <div *ngIf="gameNotRunning() || gameEnded()" class="bg-info p-3 text-center rounded" [ngClass]="{'infoTextCol' : collapsed.isCollapsed, 'infoTextOpen' : !collapsed.isCollapsed}">
-    <h5>You are playing against a AI, the AI is yellow, you are blue. To set a stone click on the column you want to set on. Who starts is chosen randomly.</h5>
+    <h5>You are playing against a AI, the AI is grey, you are blue. To set a stone click on the column you want to set on. Who starts is chosen randomly.</h5>
   </div>
   <div class="row" *ngIf="gameEnded()">
     <div class="col align-self-center">

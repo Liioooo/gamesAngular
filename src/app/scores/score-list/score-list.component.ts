@@ -3,6 +3,7 @@ import {ScoreService} from '../../services/score.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {GetHighscoresForGame} from '../../interfaces/interfaces';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-score-list',

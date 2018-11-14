@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login-form',
@@ -12,9 +13,10 @@ export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public auth: AuthService, private formBuilder: FormBuilder, private title: Title) { }
 
   ngOnInit() {
+      this.title.setTitle('LioGames - Login');
       this.loginForm = this.formBuilder.group({
           username: ['', Validators.required],
           password: ['', Validators.required]
