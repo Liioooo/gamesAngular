@@ -9,8 +9,16 @@
   <p>All information associated to this Account will be permanently deleted.
     <span class="text-danger">This operation can not be undone.</span>
   </p>
+  <form [formGroup]="deleteAccountPasswordForm" class="form-group">
+    <label for="deleteAccountPassword">Password:</label>
+    <input type="password" class="form-control" id="deleteAccountPassword" formControlName="deleteAccountPassword" placeholder="Type your Password to delete Account">
+    <div class="invalid-feedback d-block" *ngIf="deleteAccountPasswordFormSubmitted && form.deleteAccountPassword.errors">
+      <span *ngIf="form.deleteAccountPassword.errors.required">Please type in a Password!</span>
+      <span *ngIf="form.deleteAccountPassword.errors.invalidPW">Invalid Password!</span>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
-  <button type="button" class="btn btn-danger" (click)="activeModal.close('Ok click')">Ok</button>
+  <button type="button" class="btn btn-danger" (click)="deleteAccount()">Ok</button>
 </div>

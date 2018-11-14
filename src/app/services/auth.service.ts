@@ -34,7 +34,6 @@ export class AuthService {
                 tap(data => resolve(data.error)),
                 filter(data => data.auth === 'true')
             ).subscribe(data => {
-                console.log(data);
                 Object.keys(data).forEach(key => {
                     if(key !== 'error') {
                         sessionStorage.setItem(key, data[key]);
@@ -45,16 +44,26 @@ export class AuthService {
         });
     }
 
+    deleteUserAccount(password: string): Promise<string> {
+        return new Promise(resolve => {
+            this.http.post('/api/deleteUserAccount.php', {
+                'password': password,
+                'userID': sessionStorage.getItem('userID'),
+                'username': sessionStorage.getItem('username')
+            }).pipe(
+                tap(data => resolve(data['error'])),
+                filter(data => data['error'] === '0')
+            ).subscribe(data => this.setUserLoggedOut());
+        });
+    }
+
+
     logout() {
         this.http.get('/api/logout.php').subscribe(data => this.setUserLoggedOut());
     }
 
     private setUserLoggedOut() {
-        sessionStorage.removeItem('auth');
-        sessionStorage.removeItem('username');
-        sessionStorage.removeItem('auth');
-        sessionStorage.removeItem('userID');
-        sessionStorage.removeItem('picturePath');
+        sessionStorage.clear();
         this.router.navigate(['dashboard']);
     }
 

@@ -69,9 +69,6 @@ export class ManageAccountComponent implements OnInit {
   openDeleteAccountModal() {
       const modal = this.modalService.open(DeleteUserModalComponent);
       modal.componentInstance.accountToDelete = this.auth.getUsername();
-      modal.result.then(result => {
-          //TODO: delete user account
-      }).catch(error => {});
 }
 
 
