@@ -1,1 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+router-outlet ~ * {
+    position: absolute;
+    height: calc(100% - 58px);
+    width: 100%;
+}

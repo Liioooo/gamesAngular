@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -22,6 +23,8 @@ import { ScoreListComponent } from './scores/score-list/score-list.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { DeleteUserModalComponent } from './user/delete-user-modal/delete-user-modal.component';
+import { CookieNoticeComponent } from './cookie-notice/cookie-notice.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -40,16 +43,18 @@ import { DeleteUserModalComponent } from './user/delete-user-modal/delete-user-m
       ScoreListComponent,
       RegisterFormComponent,
       UserDetailComponent,
-      DeleteUserModalComponent
+      DeleteUserModalComponent,
+      CookieNoticeComponent
     ],
     imports: [
       BrowserModule,
       ReactiveFormsModule,
       NgbModule.forRoot(),
       AppRoutingModule,
-      HttpClientModule
+      HttpClientModule,
+        BrowserAnimationsModule
     ],
-    providers: [],
+    providers: [CookieService],
     bootstrap: [AppComponent],
     entryComponents: [DeleteUserModalComponent]
 })
