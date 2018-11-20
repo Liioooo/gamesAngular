@@ -5,7 +5,7 @@
       <form [formGroup]="changeUsernameForm" (submit)="handleChangeUsernameClick()">
         <div class="form-group">
           <label for="newUsername">Change Username:</label>
-          <input type="text" value="{{auth.getUsername()}}" class="form-control" [class.is-invalid]="changeUsernameSubmitted && usernameForm.newUsername.errors" id="newUsername" placeholder="New Username" name="newUsername" formControlName="newUsername">
+          <input type="text" value="{{api.getUsername()}}" class="form-control" [class.is-invalid]="changeUsernameSubmitted && usernameForm.newUsername.errors" id="newUsername" placeholder="New Username" name="newUsername" formControlName="newUsername">
           <div class="invalid-feedback d-block" *ngIf="changeUsernameSubmitted && usernameForm.newUsername.errors">
             <span *ngIf="usernameForm.newUsername.errors.required">Please type in a Username!</span>
             <span *ngIf="usernameForm.newUsername.errors.minlength">Username must contain at least 3 characters!</span>
@@ -53,7 +53,7 @@
     </div>
     <div class="col-md-6 col-lg-5 col-xl-4 mt-3 mt-md-0">
       <p>Change Profile Picture:</p>
-      <img [src]="auth.getProfilePicturePath()" class="rounded-circle" style="height: 320px; width: 320px;">
+      <img [src]="api.getProfilePicturePath()" class="rounded-circle" style="height: 320px; width: 320px;">
       <form [formGroup]="changePictureForm" (submit)="handleChangePictureClick()" class="col pt-3 pl-md-4 pr-0">
         <label class="w-100">
           <input formControlName="fileInput" (change)="onFileChange($event)" accept="image/*" name="fileInput" id="fileInput" class="custom-file-input d-none" type="file"/>

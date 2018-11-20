@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
-import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-cookie-notice',

@@ -26,11 +26,11 @@
       <li class="nav-item" [class.active]="location.path(false) === '/highscores'">
         <a class="nav-link" routerLink="/highscores">Highscores</a>
       </li>
-      <li *ngIf="!auth.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/login'">
+      <li *ngIf="!api.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/login'">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li *ngIf="auth.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/manage-account'">
-        <a class="nav-link" routerLink="/manage-account">{{auth.getUsername()}}</a>
+      <li *ngIf="api.isAuthenticated()" class="nav-item" [class.active]="location.path(false) === '/manage-account'">
+        <a class="nav-link" routerLink="/manage-account">{{api.getUsername()}}</a>
       </li>
     </ul>
   </div>

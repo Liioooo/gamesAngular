@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {AuthService} from '../services/auth.service';
+import {ApiService} from '../services/api.service';
 import {Router} from '@angular/router';
 import {NavbarCollapsedService} from '../services/navbar-collapsed.service';
 
@@ -11,7 +11,7 @@ import {NavbarCollapsedService} from '../services/navbar-collapsed.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(public location: Location, public auth: AuthService, private router: Router, public collapsed: NavbarCollapsedService) {}
+  constructor(public location: Location, public api: ApiService, private router: Router, public collapsed: NavbarCollapsedService) {}
 
   ngOnInit() {
     this.router.events.subscribe(event => {

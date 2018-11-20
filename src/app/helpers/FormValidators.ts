@@ -1,5 +1,5 @@
 import { FormControl, ValidationErrors} from '@angular/forms';
-import {AuthService} from '../services/auth.service';
+import {ApiService} from '../services/api.service';
 import {Observable, Observer, of} from 'rxjs';
 
 export class PasswordValidator {
@@ -29,15 +29,15 @@ export class FileValidator {
 
 export class UsernameValidator {
 
-    static authService: AuthService;
+    static apiService: ApiService;
 
-    constructor(private auth: AuthService) {
-        UsernameValidator.authService = auth;
+    constructor(private api: ApiService) {
+        UsernameValidator.apiService = api;
     }
 
      usernameAvailable(c: FormControl): Observable<ValidationErrors | null> {
         return Observable.create((observer: Observer<ValidationErrors>) => {
-            UsernameValidator.authService.isUsernameAvailable(c.value).subscribe(data => {
+            UsernameValidator.apiService.isUsernameAvailable(c.value).subscribe(data => {
                 if (data.available == '1') {
                     observer.next(null);
                 } else {

@@ -12,7 +12,6 @@ export interface UserInfo {
 export interface UserLoginInfo {
     username: string,
     auth: string,
-    userID: string,
     picturePath: string,
     error: string
 }

@@ -1,9 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ScoreService} from '../../services/score.service';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {GetHighscoresForGame} from '../../interfaces/interfaces';
-import {Title} from '@angular/platform-browser';
+import {ApiService} from '../../services/api.service';
 
 @Component({
   selector: 'app-score-list',
@@ -16,10 +14,10 @@ export class ScoreListComponent implements OnInit {
 
   userlist: Observable<GetHighscoresForGame>;
 
-  constructor(private score: ScoreService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.userlist = this.score.getHighscoresGame(this.gameID);
+    this.userlist = this.api.getHighscoresGame(this.gameID);
   }
 
 }
