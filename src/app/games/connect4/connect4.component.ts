@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ScoreService} from '../../services/score.service';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
@@ -20,7 +19,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
 
     private gameID = 3;
 
-    constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService, private title: Title) {
+    constructor(public api: ApiService, public collapsed: NavbarCollapsedService, private title: Title) {
         window.onresize = this.onWindowResize;
     }
 
@@ -38,7 +37,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
     }
 
     private createCanvas = () => {
-        const sketch = this.defineSketch(this.connect4Canvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
+        const sketch = this.defineSketch(this.connect4Canvas.nativeElement.offsetWidth, this.api, this.gameID);
         this.p5 = new p5(sketch);
     }
 
@@ -93,7 +92,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
         }
     }
 
-    private defineSketch(width: number, scoreService: ScoreService, auth: AuthService, gameID: number) {
+    private defineSketch(width: number, apiService: ApiService, gameID: number) {
 
         return function (p: any) {
 
@@ -162,14 +161,14 @@ export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
 
             p.endGame = () => {
                 p.gameState = 2;
-                if(auth.isAuthenticated()) {
-                    scoreService.saveHighscore(gameID, p.score)
+                if(apiService.isAuthenticated()) {
+                    apiService.saveHighscore(gameID, p.score)
                         .subscribe(data => {
                             p.allHighscore = data.allHighscore;
                             p.userHighscore = data.userHighscore
                         });
                 } else {
-                    scoreService.getHighScore(gameID).subscribe(data => {
+                    apiService.getHighScore(gameID).subscribe(data => {
                         p.allHighscore = data.allHighscore;
                     });
                 }

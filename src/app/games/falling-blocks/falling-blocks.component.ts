@@ -2,8 +2,7 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, V
 import { Player } from './Player';
 import * as p5 from 'p5';
 import {Block} from './Block';
-import {ScoreService} from '../../services/score.service';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import {P5JsHelpers} from '../../helpers/P5JsHelpers';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {Title} from '@angular/platform-browser';
@@ -20,7 +19,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit 
 
   private gameID: number = 0;
 
-  constructor(private scoreService: ScoreService, public auth: AuthService, public collapsed: NavbarCollapsedService, private title: Title) {
+  constructor(public api: ApiService, public collapsed: NavbarCollapsedService, private title: Title) {
       window.onresize = this.onWindowResize;
       document.onvisibilitychange = this.onVisibilityChange;
   }
@@ -39,7 +38,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit 
   }
 
   private createCanvas = () => {
-      const sketch = this.defineSketch(this.fallingBlockCanvas.nativeElement.offsetWidth, this.scoreService, this.auth, this.gameID);
+      const sketch = this.defineSketch(this.fallingBlockCanvas.nativeElement.offsetWidth, this.api, this.gameID);
       this.p5 = new p5(sketch);
   }
 
@@ -103,7 +102,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit 
   }
 
 
-  private defineSketch(width: number, scoreService: ScoreService, auth: AuthService, gameID: number) {
+  private defineSketch(width: number, apiService: ApiService, gameID: number) {
 
     let endAnimationPos = 0;
 
@@ -188,14 +187,14 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit 
             p.gameState = 2;
             endAnimationPos = 0;
             clearInterval(p.scoreCounterIntervall);
-            if(auth.isAuthenticated()) {
-                scoreService.saveHighscore(gameID, p.score)
+            if(apiService.isAuthenticated()) {
+                apiService.saveHighscore(gameID, p.score)
                     .subscribe(data => {
                         p.allHighscore = data.allHighscore;
                         p.userHighscore = data.userHighscore
                     });
             } else {
-                scoreService.getHighScore(gameID).subscribe(data => {
+                apiService.getHighScore(gameID).subscribe(data => {
                         p.allHighscore = data.allHighscore;
                     });
             }

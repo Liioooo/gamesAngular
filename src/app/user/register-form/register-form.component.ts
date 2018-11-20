@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import {PasswordValidator, UsernameValidator} from '../../helpers/FormValidators';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-register-form',
@@ -14,12 +15,12 @@ export class RegisterFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public auth: AuthService, private title: Title) { }
+  constructor(public api: ApiService, private title: Title) { }
 
   ngOnInit() {
       this.title.setTitle('LioGames - Register');
       this.loginForm = new FormGroup({
-          username: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable),
+          username: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.api).usernameAvailable),
           password: new FormControl('', Validators.required),
           password1: new FormControl('', Validators.required),
       }, {
@@ -38,10 +39,8 @@ export class RegisterFormComponent implements OnInit {
 
       const username = this.loginForm.controls.username.value;
       const password = this.loginForm.controls.password.value;
-      this.auth.register(username, password).then(result => {
-          if(result === 'alreadyExists') {
-              this.loginForm.controls.username.setErrors({isNotAvailable: true});
-          }
-      });
+      this.api.register(username, password).pipe(
+          filter(data => data === 'alreadyExists')
+      ).subscribe(data => this.loginForm.controls.username.setErrors({isNotAvailable: true}));
   }
 }

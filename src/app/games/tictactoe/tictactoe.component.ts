@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import * as p5 from 'p5';
 import {NeuralNet} from './NeuralNet';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {Title} from '@angular/platform-browser';
 

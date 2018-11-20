@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 
 @Component({
   selector: 'app-delete-user-modal',
@@ -15,7 +15,7 @@ export class DeleteUserModalComponent implements OnInit {
   public deleteAccountPasswordForm: FormGroup;
   public deleteAccountPasswordFormSubmitted = false;
 
-  constructor(public activeModal: NgbActiveModal, private auth: AuthService) { }
+  constructor(public activeModal: NgbActiveModal, private api: ApiService) { }
 
   get form() { return this.deleteAccountPasswordForm.controls; }
 
@@ -29,8 +29,8 @@ export class DeleteUserModalComponent implements OnInit {
       this.deleteAccountPasswordFormSubmitted = true;
       if(this.deleteAccountPasswordForm.invalid) return;
 
-      this.auth.deleteUserAccount(this.deleteAccountPasswordForm.controls.deleteAccountPassword.value).then(result => {
-        if(result !== '0') {
+      this.api.deleteUserAccount(this.deleteAccountPasswordForm.controls.deleteAccountPassword.value).subscribe(result => {
+        if(result !== '') {
             this.deleteAccountPasswordForm.controls.deleteAccountPassword.setErrors({invalidPW: true});
         } else {
             this.activeModal.close('deleted');

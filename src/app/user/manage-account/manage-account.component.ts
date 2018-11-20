@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {FileValidator, PasswordValidator, UsernameValidator} from '../../helpers/FormValidators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -28,13 +28,13 @@ export class ManageAccountComponent implements OnInit {
 
   private file: any;
 
-  constructor(public auth: AuthService, private modalService: NgbModal, private title: Title) {
+  constructor(public api: ApiService, private modalService: NgbModal, private title: Title) {
   }
 
   ngOnInit() {
       this.title.setTitle('LioGames - Manage Account');
       this.changeUsernameForm = new FormGroup({
-          newUsername: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.auth).usernameAvailable)
+          newUsername: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.api).usernameAvailable)
       });
       this.changePasswordForm = new FormGroup({
           oldPassword: new FormControl('', Validators.required),
@@ -51,7 +51,7 @@ export class ManageAccountComponent implements OnInit {
           description: new FormControl('')
       });
 
-      this.auth.getUserDescription().subscribe(data => {
+      this.api.getUserDescription().subscribe(data => {
           this.changeDescriptionForm.controls.description.setValue(data['description']);
       });
   }
@@ -65,12 +65,12 @@ export class ManageAccountComponent implements OnInit {
   get filePath() { return this.changePictureForm.controls.fileInput.value.replace(/\\$/,'').split('\\').pop(); }
 
   handleLogoutClick() {
-    this.auth.logout();
+    this.api.logout();
   }
 
   openDeleteAccountModal() {
       const modal = this.modalService.open(DeleteUserModalComponent);
-      modal.componentInstance.accountToDelete = this.auth.getUsername();
+      modal.componentInstance.accountToDelete = this.api.getUsername();
 }
 
 
@@ -84,8 +84,8 @@ export class ManageAccountComponent implements OnInit {
 
       const username = this.changeUsernameForm.controls.newUsername.value;
 
-      this.auth.changeUsername(username).then(result => {
-        if(result === '0') {
+      this.api.changeUsername(username).subscribe(result => {
+        if(result === '') {
             this.changeUsernameSuccess = true;
             this.changeUsernameSubmitted = false;
             this.changeUsernameForm.reset();
@@ -106,8 +106,8 @@ export class ManageAccountComponent implements OnInit {
       const newPassword = this.changePasswordForm.controls.password.value;
       const oldPassword = this.changePasswordForm.controls.oldPassword.value;
 
-      this.auth.changePassword(newPassword, oldPassword).then(result => {
-          if(result === '0') {
+      this.api.changePassword(newPassword, oldPassword).subscribe(result => {
+          if(result === '') {
               this.changePasswordSuccess = true;
               this.changePasswordSubmitted = false;
               this.changePasswordForm.reset();
@@ -139,10 +139,10 @@ export class ManageAccountComponent implements OnInit {
       }
 
       this.resize(this.file, 400, 400).then(fileToUpload => {
-          this.auth.changePicture(fileToUpload).then(result => {
-              if(result == '0') {
+          this.api.changePicture(fileToUpload).subscribe(result => {
+              if(result == '') {
                   this.changePictureSubmitted = false;
-                  this.auth.updateProfilePicturePath();
+                  this.api.updateProfilePicturePath();
               } else {
                   this.changePictureForm.controls.fileInput.setErrors({invalidFile: true})
               }
@@ -151,12 +151,12 @@ export class ManageAccountComponent implements OnInit {
   }
 
     removePicture() {
-        this.auth.removePicture();
+        this.api.removePicture();
     }
 
     handleChangeDescriptionClick() {
-      this.auth.updateUserDescription(this.changeDescriptionForm.controls.description.value)
-          .then(result => {
+      this.api.updateUserDescription(this.changeDescriptionForm.controls.description.value)
+          .subscribe(result => {
               this.changeDescriptionSuccess = true;
           });
     }

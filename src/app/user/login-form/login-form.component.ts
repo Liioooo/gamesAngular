@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {ApiService} from '../../services/api.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 
@@ -13,7 +13,7 @@ export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public auth: AuthService, private formBuilder: FormBuilder, private title: Title) { }
+  constructor(public api: ApiService, private formBuilder: FormBuilder, private title: Title) { }
 
   ngOnInit() {
       this.title.setTitle('LioGames - Login');
@@ -34,7 +34,7 @@ export class LoginFormComponent implements OnInit {
 
       const username = this.loginForm.controls.username.value;
       const password = this.loginForm.controls.password.value;
-      this.auth.login(username, password).then(result => {
+      this.api.login(username, password).subscribe(result => {
           if(result === 'noSuchUser') {
               this.loginForm.controls.username.setErrors({noSuchUser: true})
           } else if(result === 'invalid') {
