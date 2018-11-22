@@ -18,14 +18,14 @@ export class ApiService {
             'params': params
         }).pipe(
             tap(data => {
-                if(data['status'] != '200') {
+                if(data['status'] !== 200) {
                     console.log(data['status'], data['message']);
-                    if(data['status'] === '106') {
+                    if(data['status'] === 106) {
                         this.setUserLoggedOut();
                     }
                 }
             }),
-            filter(data => data['status'] == '200'),
+            filter(data => data['status'] === 200),
             map(data => data['result'])
         );
     }

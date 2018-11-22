@@ -3,7 +3,7 @@ export class P5JsHelpers {
     private static lastFramerates;
 
     static initFrameRateAvg() {
-        this.lastFramerates = new Array(5).fill(0);
+        this.lastFramerates = new Array(10).fill(0);
     }
 
     static updateFrameRateAvg(p5: any) {
