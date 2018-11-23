@@ -53,18 +53,27 @@
     </div>
     <div class="col-md-6 col-lg-5 col-xl-4 mt-3 mt-md-0">
       <p>Change Profile Picture:</p>
-      <img [src]="api.getProfilePicturePath()" class="rounded-circle" style="height: 320px; width: 320px;">
+      <file-drop customstyle="dragDropBox rounded-circle" (onFileDrop)="droppedFileOnDrop($event)">
+        <img [src]="api.getProfilePicturePath()" class="rounded-circle position-absolute imgHoverDetector" style="height: 320px; width: 320px; top: calc(24px + 1rem);">
+        <div class="position-absolute justify-content-center align-items-center dragDropOverlay rounded-circle" style="height: 320px; width: 320px; top: calc(24px + 1rem);">
+          <div class="text-dark dragDropOverlayIcon">
+            <i class="material-icons" style="font-size: 10rem;">cloud_upload</i>
+            <p class="text-center">Drag File to upload</p>
+          </div>
+        </div>
+      </file-drop>
       <form [formGroup]="changePictureForm" (submit)="handleChangePictureClick()" class="col pt-3 pl-md-4 pr-0">
         <label class="w-100">
           <input formControlName="fileInput" (change)="onFileChange($event)" accept="image/*" name="fileInput" id="fileInput" class="custom-file-input d-none" type="file"/>
+          <input formControlName="filePathValidation" class="d-none">
           <span class="btn btn-primary">Choose File</span>
           <label for="fileInput" class="ml-2">{{filePath}}</label>
         </label>
         <button type="submit" class="btn btn-primary">Change Picture</button>
         <button type="button" (click)="removePicture()" class="btn btn-primary ml-2">Remove Picture</button>
-        <div class="invalid-feedback d-block" *ngIf="changePictureSubmitted && pictureForm.fileInput.errors">
-          <span *ngIf="pictureForm.fileInput.errors.required">Please choose a file!</span>
-          <span *ngIf="!pictureForm.fileInput.errors.required && pictureForm.fileInput.errors.invaldFile">invalid File!</span>
+        <div class="invalid-feedback d-block" *ngIf="changePictureSubmitted && pictureForm.filePathValidation.errors">
+          <span *ngIf="pictureForm.filePathValidation.errors.required">Please choose a file!</span>
+          <span *ngIf="!pictureForm.filePathValidation.errors.required && pictureForm.filePathValidation.errors.invalidFile">invalid File!</span>
         </div>
       </form>
     </div>

@@ -5,3 +5,8 @@ router-outlet ~ * {
     height: calc(100% - 58px);
     width: 100%;
 }
+
+.dragDropBox {
+    width: 320px;
+    height: 320px;
+}

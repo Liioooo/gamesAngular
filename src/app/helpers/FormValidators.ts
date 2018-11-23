@@ -1,4 +1,4 @@
-import { FormControl, ValidationErrors} from '@angular/forms';
+import {FormControl, ValidationErrors} from '@angular/forms';
 import {ApiService} from '../services/api.service';
 import {Observable, Observer, of} from 'rxjs';
 
@@ -21,9 +21,15 @@ export class FileValidator {
         const file = c.value.toString().toLowerCase();
         if((file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.png') || file.endsWith('.gif'))) {
             return null;
-        } else {
-            return {invaldFile: true};
         }
+        return {invalidFile: true};
+    }
+
+    public static required(c: FormControl) {
+        if(c.value === '') {
+            return {required: true};
+        }
+        return null;
     }
 }
 

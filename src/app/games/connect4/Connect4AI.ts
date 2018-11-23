@@ -99,7 +99,7 @@ export class Connect4AI {
         for (let i = 0; i < grid.length; i++) {
             if(grid[i][0] === 0) possible.push(i);
         }
-        return possible;
+        return possible.sort(() => Math.random() - 0.5);
     }
 
     static cloneData(data) {

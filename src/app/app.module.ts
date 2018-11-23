@@ -25,6 +25,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { DeleteUserModalComponent } from './user/delete-user-modal/delete-user-modal.component';
 import { CookieNoticeComponent } from './cookie-notice/cookie-notice.component';
 import {CookieService} from 'ngx-cookie-service';
+import {FileDropModule} from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {CookieService} from 'ngx-cookie-service';
       NgbModule.forRoot(),
       AppRoutingModule,
       HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FileDropModule
     ],
     providers: [CookieService],
     bootstrap: [AppComponent],

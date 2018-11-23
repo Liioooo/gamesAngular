@@ -5,6 +5,7 @@ import {FileValidator, PasswordValidator, UsernameValidator} from '../../helpers
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeleteUserModalComponent} from '../delete-user-modal/delete-user-modal.component';
 import {Title} from '@angular/platform-browser';
+import {FileSystemFileEntry, UploadEvent} from 'ngx-file-drop';
 
 @Component({
   selector: 'app-manage-account',
@@ -27,6 +28,7 @@ export class ManageAccountComponent implements OnInit {
   public changeDescriptionSuccess = false;
 
   private file: any;
+  private filePathVar: string = '';
 
   constructor(public api: ApiService, private modalService: NgbModal, private title: Title) {
   }
@@ -44,7 +46,8 @@ export class ManageAccountComponent implements OnInit {
           validators: PasswordValidator.samePasswords
       });
       this.changePictureForm = new FormGroup({
-          fileInput: new FormControl('', [Validators.required, FileValidator.fileValid])
+          fileInput: new FormControl(''),
+          filePathValidation: new FormControl('', [FileValidator.required, FileValidator.fileValid])
       });
 
       this.changeDescriptionForm = new FormGroup({
@@ -62,7 +65,9 @@ export class ManageAccountComponent implements OnInit {
 
   get pictureForm() { return this.changePictureForm.controls; }
 
-  get filePath() { return this.changePictureForm.controls.fileInput.value.replace(/\\$/,'').split('\\').pop(); }
+  get filePath() {
+      return this.filePathVar;
+  }
 
   handleLogoutClick() {
     this.api.logout();
@@ -125,11 +130,28 @@ export class ManageAccountComponent implements OnInit {
       if(event.target.files && event.target.files.length) {
           const [file] = event.target.files;
           reader.readAsDataURL(file);
+          this.filePathVar = file.name;
+          this.changePictureForm.controls.filePathValidation.setValue(this.filePathVar);
+          this.changePictureForm.updateValueAndValidity();
 
           reader.onload = () => {
               this.file = reader.result;
           };
       }
+  }
+
+  droppedFileOnDrop(event: UploadEvent) {
+      const fileEntry =  event.files[0].fileEntry as FileSystemFileEntry;
+      fileEntry.file((file: File) => {
+          this.filePathVar = file.name;
+          this.changePictureForm.controls.filePathValidation.setValue(this.filePathVar);
+          this.changePictureForm.updateValueAndValidity();
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+              this.file = reader.result;
+          };
+      });
   }
 
   handleChangePictureClick() {
