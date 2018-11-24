@@ -1,9 +1,10 @@
 <div class="p-3 m-3 border rounded">
   <h2>TicTacToe</h2>
-  <div id="ticTacToe-canvas"></div>
-  <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success" [ngClass]="{'startButtonCol' : collapsed.isCollapsed, 'startButtonOpen' : !collapsed.isCollapsed}">Start</button>
-  <div *ngIf="gameNotRunning() || gameEnded()" class="bg-info p-3 text-center rounded" [ngClass]="{'infoTextCol' : collapsed.isCollapsed, 'infoTextOpen' : !collapsed.isCollapsed}">
-    <h5>You are playing against a AI, you are the X, the AI the O. To set click on the field you want to set on. Who starts is chosen randomly.</h5>
+  <div id="ticTacToe-canvas">
+    <button *ngIf="gameNotRunning()" (click)="startGame()" class="btn btn-success startButton">Start</button>
+    <div *ngIf="gameNotRunning() || gameEnded()" class="bg-info p-3 text-center rounded infoText">
+      <h5>You are playing against a AI, you are the X, the AI the O. To set click on the field you want to set on. Who starts is chosen randomly.</h5>
+    </div>
   </div>
   <div class="row">
     <div class="col align-self-center">

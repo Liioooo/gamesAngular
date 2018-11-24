@@ -1,4 +1,4 @@
 .cookie-box {
     background-color: rgba(52, 58, 64, .9);
-    height: 55px;
+    height: fit-content;
 }

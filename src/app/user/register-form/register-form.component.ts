@@ -4,6 +4,8 @@ import {PasswordValidator, UsernameValidator} from '../../helpers/FormValidators
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 import {filter} from 'rxjs/operators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PrivacyPolicyComponent} from '../privacy-policy/privacy-policy.component';
 
 @Component({
   selector: 'app-register-form',
@@ -15,7 +17,7 @@ export class RegisterFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public api: ApiService, private title: Title) { }
+  constructor(public api: ApiService, private title: Title, private modalService: NgbModal) { }
 
   ngOnInit() {
       this.title.setTitle('LioGames - Register');
@@ -23,6 +25,7 @@ export class RegisterFormComponent implements OnInit {
           username: new FormControl('', [Validators.required, Validators.minLength(3)], new UsernameValidator(this.api).usernameAvailable),
           password: new FormControl('', Validators.required),
           password1: new FormControl('', Validators.required),
+          privacyCheckBox: new FormControl('', Validators.requiredTrue)
       }, {
           validators: [PasswordValidator.samePasswords],
       });
@@ -43,4 +46,9 @@ export class RegisterFormComponent implements OnInit {
           filter(data => data === 'alreadyExists')
       ).subscribe(data => this.loginForm.controls.username.setErrors({isNotAvailable: true}));
   }
+
+    openPrivacyPolicyModal(event) {
+      event.preventDefault();
+      this.modalService.open(PrivacyPolicyComponent, {size: 'lg'});
+    }
 }

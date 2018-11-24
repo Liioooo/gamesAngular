@@ -22,6 +22,11 @@
         <span *ngIf="form.password1.errors.required">Please type your Password again!</span>
         <span *ngIf="form.password1.errors.matchPassword">Passwords do not match!</span>
       </div>
+      <div class="custom-control custom-checkbox mt-2">
+        <input type="checkbox" class="custom-control-input" id="privacyCheckBox" formControlName="privacyCheckBox">
+        <label class="custom-control-label" for="privacyCheckBox">I read and accepted the <a class="alert-link pl-0" href="#" (click)="openPrivacyPolicyModal($event)">Privacy Policy.</a></label>
+      </div>
+      <span *ngIf="submitted && form.privacyCheckBox.errors && form.privacyCheckBox.errors.required" class="invalid-feedback d-block">You must accept the Privacy Policy!</span>
     </div>
     <button class="btn btn-primary">Register</button>
   </form>

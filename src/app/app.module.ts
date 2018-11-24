@@ -26,6 +26,7 @@ import { DeleteUserModalComponent } from './user/delete-user-modal/delete-user-m
 import { CookieNoticeComponent } from './cookie-notice/cookie-notice.component';
 import {CookieService} from 'ngx-cookie-service';
 import {FileDropModule} from 'ngx-file-drop';
+import { PrivacyPolicyComponent } from './user/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {FileDropModule} from 'ngx-file-drop';
       RegisterFormComponent,
       UserDetailComponent,
       DeleteUserModalComponent,
-      CookieNoticeComponent
+      CookieNoticeComponent,
+      PrivacyPolicyComponent
     ],
     imports: [
       BrowserModule,
@@ -58,6 +60,6 @@ import {FileDropModule} from 'ngx-file-drop';
     ],
     providers: [CookieService],
     bootstrap: [AppComponent],
-    entryComponents: [DeleteUserModalComponent]
+    entryComponents: [DeleteUserModalComponent, PrivacyPolicyComponent]
 })
 export class AppModule { }

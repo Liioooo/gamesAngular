@@ -53,10 +53,10 @@
     </div>
     <div class="col-md-6 col-lg-5 col-xl-4 mt-3 mt-md-0">
       <p>Change Profile Picture:</p>
-      <file-drop customstyle="dragDropBox rounded-circle" (onFileDrop)="droppedFileOnDrop($event)">
+      <file-drop customstyle="dragDropBox rounded-circle" (onFileDrop)="droppedFileOnDrop($event)" (onFileOver)="onFileDropOver($event)" (onFileLeave)="onFileDropLeave($event)">
         <img [src]="api.getProfilePicturePath()" class="rounded-circle position-absolute imgHoverDetector" style="height: 320px; width: 320px; top: calc(24px + 1rem);">
-        <div class="position-absolute justify-content-center align-items-center dragDropOverlay rounded-circle" style="height: 320px; width: 320px; top: calc(24px + 1rem);">
-          <div class="text-dark dragDropOverlayIcon">
+        <div class="position-absolute justify-content-center align-items-center dragDropOverlay rounded-circle" id="dragDropOverlay" style="height: 320px; width: 320px; top: calc(24px + 1rem);">
+          <div class="text-dark dragDropOverlayIcon" id="dragDropOverlayIcon">
             <i class="material-icons" style="font-size: 10rem;">cloud_upload</i>
             <p class="text-center">Drag File to upload</p>
           </div>
@@ -76,6 +76,9 @@
           <span *ngIf="!pictureForm.filePathValidation.errors.required && pictureForm.filePathValidation.errors.invalidFile">invalid File!</span>
         </div>
       </form>
+      <div class="pl-md-4 pl-3 pt-4">
+        <p>Read our <a class="alert-link pl-0" href="#" (click)="openPrivacyPolicyModal($event)">Privacy Policy</a></p>
+      </div>
     </div>
   </div>
   <div class="mt-3 pl-md-0 pl-3 row">

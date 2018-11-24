@@ -13,3 +13,7 @@
 .dragDropOverlayIcon {
     display: none;
 }
+
+.dragDropOverlay * {
+    pointer-events: none;
+}

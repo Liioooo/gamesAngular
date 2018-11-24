@@ -6,6 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DeleteUserModalComponent} from '../delete-user-modal/delete-user-modal.component';
 import {Title} from '@angular/platform-browser';
 import {FileSystemFileEntry, UploadEvent} from 'ngx-file-drop';
+import {PrivacyPolicyComponent} from '../privacy-policy/privacy-policy.component';
 
 @Component({
   selector: 'app-manage-account',
@@ -124,6 +125,16 @@ export class ManageAccountComponent implements OnInit {
       });
   }
 
+  onFileDropOver(event) {
+      document.getElementById('dragDropOverlay').style.background = 'rgba(52, 58, 64, .2)';
+      document.getElementById('dragDropOverlayIcon').style.display = 'block';
+  }
+
+  onFileDropLeave(event) {
+          document.getElementById('dragDropOverlay').style.background = '';
+          document.getElementById('dragDropOverlayIcon').style.display = '';
+  }
+
   onFileChange(event) {
       let reader = new FileReader();
 
@@ -199,6 +210,11 @@ export class ManageAccountComponent implements OnInit {
                 resolve(canvas.toDataURL());
             };
         });
+    }
+
+    openPrivacyPolicyModal(event) {
+        event.preventDefault();
+        this.modalService.open(PrivacyPolicyComponent, {size: 'lg'});
     }
 
 }
