@@ -2,11 +2,11 @@
 
   <span class="pr-3"><a routerLink="/dashboard"><img src="/assets/logo.svg"></a></span>
 
-  <button class="navbar-toggler" type="button" (click)="collapsed.toggle()">
+  <button class="navbar-toggler" type="button" (click)="collapsed = !collapsed">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="navbar-collapse collapse w-100" [ngbCollapse]="collapsed.isCollapsed">
+  <div class="navbar-collapse collapse w-100" [ngbCollapse]="collapsed">
     <ul class="navbar-nav w-100">
       <li class="nav-item" [class.active]="location.path(false) === '/tictactoe'">
         <a class="nav-link" routerLink="/tictactoe">TicTacToe</a>

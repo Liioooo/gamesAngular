@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {ApiService} from '../services/api.service';
 import {Router} from '@angular/router';
-import {NavbarCollapsedService} from '../services/navbar-collapsed.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,11 +10,13 @@ import {NavbarCollapsedService} from '../services/navbar-collapsed.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(public location: Location, public api: ApiService, private router: Router, public collapsed: NavbarCollapsedService) {}
+  private collapsed: boolean = true;
+
+  constructor(public location: Location, public api: ApiService, private router: Router) {}
 
   ngOnInit() {
     this.router.events.subscribe(event => {
-      this.collapsed.isCollapsed = true;
+      this.collapsed = true;
     });
   }
 

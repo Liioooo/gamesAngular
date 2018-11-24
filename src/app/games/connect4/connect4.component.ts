@@ -4,7 +4,6 @@ import * as p5 from 'p5';
 import {Coords} from './PixelCoordsInterface';
 import {Connect4AI} from './Connect4AI';
 import {Connect4Helper} from './Connect4Helper';
-import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -19,7 +18,7 @@ export class Connect4Component implements AfterViewInit, OnDestroy, OnInit {
 
     private gameID = 3;
 
-    constructor(public api: ApiService, public collapsed: NavbarCollapsedService, private title: Title) {
+    constructor(public api: ApiService, private title: Title) {
         window.onresize = this.onWindowResize;
     }
 

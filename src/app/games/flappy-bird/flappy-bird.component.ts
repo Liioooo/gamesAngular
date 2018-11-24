@@ -3,7 +3,6 @@ import * as p5 from 'p5';
 import {Player} from './Player';
 import {Pipe} from './Pipe';
 import {ApiService} from '../../services/api.service';
-import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {P5JsHelpers} from '../../helpers/P5JsHelpers';
 import {Title} from '@angular/platform-browser';
 
@@ -19,7 +18,7 @@ export class FlappyBirdComponent implements OnDestroy, AfterViewInit, OnInit {
 
   private gameID = 1;
 
-  constructor(public api: ApiService, public collapsed: NavbarCollapsedService, private title: Title) {
+  constructor(public api: ApiService, private title: Title) {
       window.onresize = this.onWindowResize;
   }
 

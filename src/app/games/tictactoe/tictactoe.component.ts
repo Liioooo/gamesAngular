@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import * as p5 from 'p5';
 import {NeuralNet} from './NeuralNet';
-import {ApiService} from '../../services/api.service';
-import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -16,7 +14,7 @@ export class TictactoeComponent implements AfterViewInit, OnDestroy, OnInit {
 
     private gameID: number = 2;
 
-    constructor(public collapsed: NavbarCollapsedService, private title: Title) {
+    constructor(private title: Title) {
         window.onresize = this.onWindowResize;
     }
 

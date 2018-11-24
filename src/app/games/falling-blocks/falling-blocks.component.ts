@@ -4,7 +4,6 @@ import * as p5 from 'p5';
 import {Block} from './Block';
 import {ApiService} from '../../services/api.service';
 import {P5JsHelpers} from '../../helpers/P5JsHelpers';
-import {NavbarCollapsedService} from '../../services/navbar-collapsed.service';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -19,7 +18,7 @@ export class FallingBlocksComponent implements OnDestroy, AfterViewInit, OnInit 
 
   private gameID: number = 0;
 
-  constructor(public api: ApiService, public collapsed: NavbarCollapsedService, private title: Title) {
+  constructor(public api: ApiService, private title: Title) {
       window.onresize = this.onWindowResize;
       document.onvisibilitychange = this.onVisibilityChange;
   }
