@@ -1,4 +1,4 @@
 # GamesAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.5. <br>
+This project is my first Angular project, so not all Angular best practices have been followed<br>
 User Icon: https://www.flaticon.com/free-icon/man_236832
